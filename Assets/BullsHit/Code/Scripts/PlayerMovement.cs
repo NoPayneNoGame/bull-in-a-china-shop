@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour {
     if (hit.gameObject.tag == "Wall") {
       canMove = false;
       Invoke("enableMovement", 1.0f);
+      moveForce = Vector3.Reflect(moveForce.normalized, hit.contacts[0].normal) * moveForce.magnitude;
     }
   }
 
@@ -44,7 +45,7 @@ public class PlayerMovement : MonoBehaviour {
       rb.transform.position += moveForce * Time.deltaTime;
     } else {
       // Not a very realistic bounce when wall is approached at an angle
-      rb.transform.position += -moveForce / 2 * Time.deltaTime;
+      rb.transform.position += moveForce / 2 * Time.deltaTime;
     }
   }
 }
