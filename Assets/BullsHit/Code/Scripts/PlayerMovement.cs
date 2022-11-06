@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour {
       float horizontal = Input.GetAxisRaw("Horizontal");
       float vertical = Input.GetAxisRaw("Vertical");
       if (horizontal != 0) {
+        // Remove moveForce.magnitude if we want rotation while not moving
         rb.transform.Rotate(Vector3.up * horizontal * moveForce.magnitude * rotationSpeed * Time.deltaTime);
       }
       // Not sure if using velocity is better here but this is easier for now
