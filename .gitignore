@@ -60,3 +60,5 @@ Thumbs.db.meta
 *.DS_Store
 
 !**/*.gitkeep
+Assets/Private/*
+!Assets/Private/README.md
