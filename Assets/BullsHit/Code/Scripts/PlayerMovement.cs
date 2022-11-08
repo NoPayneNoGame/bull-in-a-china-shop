@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   void OnCollisionEnter(Collision hit) {
-    if (hit.gameObject.tag == "Wall") {
+    if (hit.gameObject.tag == "Wall" || hit.gameObject.tag == "Enemy") {
       canMove = false;
       Invoke("enableMovement", 1.0f);
       moveForce = Vector3.Reflect(moveForce.normalized, hit.contacts[0].normal) * moveForce.magnitude;
