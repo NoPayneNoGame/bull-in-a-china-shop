@@ -19,7 +19,7 @@ public class Score : MonoBehaviour {
         scoreValue.setValue(0);
         score += objectValue;
       }
-      scoreText.text = "Score: " + score;
+      scoreText.text = "$" + score;
     }
   }
 
