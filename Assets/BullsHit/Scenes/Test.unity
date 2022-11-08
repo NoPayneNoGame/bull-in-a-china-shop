@@ -175,8 +175,8 @@ MonoBehaviour:
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
+    enableRefracturing: 1
+    maxRefractureCount: 2
     invokeCallbacks: 0
   callbackOptions:
     onFracture:
@@ -579,8 +579,8 @@ MonoBehaviour:
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
+    enableRefracturing: 1
+    maxRefractureCount: 2
     invokeCallbacks: 0
   callbackOptions:
     onFracture:
@@ -1422,8 +1422,8 @@ MonoBehaviour:
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
+    enableRefracturing: 1
+    maxRefractureCount: 2
     invokeCallbacks: 0
   callbackOptions:
     onFracture:
@@ -1916,8 +1916,8 @@ MonoBehaviour:
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
+    enableRefracturing: 1
+    maxRefractureCount: 2
     invokeCallbacks: 0
   callbackOptions:
     onFracture:
