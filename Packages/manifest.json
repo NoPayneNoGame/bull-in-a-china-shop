@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "com.dgreenheck.openfracture": "https://github.com/dgreenheck/OpenFracture.git",
+    "com.unity.cinemachine": "2.8.9",
     "com.unity.editorcoroutines": "1.0.0",
     "com.unity.ide.vscode": "1.2.5",
+    "com.unity.inputsystem": "1.4.4",
     "com.unity.probuilder": "5.0.6",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.4",
