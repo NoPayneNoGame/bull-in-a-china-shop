@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour {
   public float zoomOutSpeed = .5f;
   public float zoomInSpeed = 3;
 
+  private float horizontal;
   private Vector3 moveForce;
   private bool canMove = true;
 
@@ -40,15 +41,19 @@ public class PlayerMovement : MonoBehaviour {
     transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
   }
 
+  void FixedUpdate() {
+    if (horizontal != 0) {
+      // Remove moveForce.magnitude if we want rotation while not moving
+      rb.transform.Rotate(Vector3.up * horizontal * rotationSpeed * moveForce.magnitude * Time.deltaTime);
+    }
+  }
+
+
   void Update() {
     if (canMove) {
-      float horizontal = Input.GetAxisRaw("Horizontal");
+      horizontal = Input.GetAxisRaw("Horizontal");
       float vertical = Input.GetAxisRaw("Vertical");
-      if (horizontal != 0) {
-        // Remove moveForce.magnitude if we want rotation while not moving
-        rb.transform.Rotate(Vector3.up * horizontal * moveForce.magnitude * rotationSpeed * Time.deltaTime);
-      }
-      // Not sure if using velocity is better here but this is easier for now
+
       moveForce += rb.transform.forward * moveSpeed * Time.deltaTime * vertical * drag;
       rb.velocity = Vector3.ClampMagnitude(moveForce, maxSpeed);
 
@@ -59,10 +64,10 @@ public class PlayerMovement : MonoBehaviour {
       // rb.transform.position += moveForce / 2 * Time.deltaTime;
     }
 
-      if (moveForce.magnitude > ((maxSpeed - moveSpeed) / 2)) {
-        transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, maxCameraDistance, zoomOutSpeed * Time.deltaTime);
-      } else {
-        transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, minCameraDistance, zoomInSpeed * Time.deltaTime);
-      }
+    if (moveForce.magnitude > ((maxSpeed - moveSpeed) / 2)) {
+      transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, maxCameraDistance, zoomOutSpeed * Time.deltaTime);
+    } else {
+      transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, minCameraDistance, zoomInSpeed * Time.deltaTime);
+    }
   }
 }
