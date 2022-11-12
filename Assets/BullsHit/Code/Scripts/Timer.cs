@@ -20,7 +20,8 @@ public class Timer : MonoBehaviour {
     timerText.text = minutes + ":" + seconds.ToString("00");
   }
 
-  void changeFontIntensity() {
+  void increaseFontIntensity() {
+    // TODO: Move to its own script, this is also used in Score.cs
     green -= 0.1f;
     timerText.color = new Color(1f, green, 0f);
     timerText.fontSize += 6;
@@ -53,7 +54,7 @@ public class Timer : MonoBehaviour {
     if (timeRemaining > 0) {
       timeRemaining -= Time.deltaTime;
       displayTime();
-      if (checkTick() && timeRemaining < 10) changeFontIntensity();
+      if (checkTick() && timeRemaining < 10) increaseFontIntensity();
     } else {
       // Timer ran out
       notifyText.text = "Wow you suck!";
