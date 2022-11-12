@@ -26,14 +26,12 @@ public class Score : MonoBehaviour {
   private Trophy lastTrophy = Trophy.none;
 
   void Start() {
-    updateTrophyImages();
-    repositionTrophies();
-  }
-
-  private void Start () {
     if (scoreText != null) return;
     Canvas canvas = FindObjectOfType<Canvas>();
     scoreText = canvas.transform.Find("Score").GetComponent<TMP_Text>();
+
+    updateTrophyImages();
+    repositionTrophies();
   }
 
   void OnCollisionEnter(Collision hit) {
