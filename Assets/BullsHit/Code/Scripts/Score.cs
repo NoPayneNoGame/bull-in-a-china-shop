@@ -26,6 +26,7 @@ public class Score : MonoBehaviour {
   private Trophy lastTrophy = Trophy.none;
 
   void Start() {
+    // Is this problematic? Might break ChinaShop scene if HUD isn't in scene
     Canvas canvas = FindObjectOfType<Canvas>();
     scoreText = canvas.transform.Find("Score Text (TMP)").GetComponent<TMP_Text>();
     trophyLeft = canvas.transform.Find("TrophyLeft").GetComponent<RawImage>();
