@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
   public float drag = 0.98f;
   public float rotationSpeed = 10;
   public float bonkThreshold = 500;
+  public float bonkPower = 10;
 
   [Header("Camera Things")]
   public CinemachineVirtualCamera vcam;
@@ -29,11 +30,31 @@ public class PlayerMovement : MonoBehaviour {
     moveForce = new Vector3(0, 0, 0);
   }
 
+  void unfreezeBonkable(GameObject bonkable) {
+    Rigidbody bonkrb = bonkable.GetComponent<Rigidbody>();
+    bonkrb.constraints = RigidbodyConstraints.None;
+  }
+
+  void checkBonkables(Vector3 position) {
+    GameObject[] bonkables = GameObject.FindGameObjectsWithTag("Bonkable");
+    foreach (GameObject bonkable in bonkables) {
+      if (Vector3.Distance(bonkable.transform.position, position) < bonkPower) {
+        Debug.Log(Vector3.Distance(bonkable.transform.position, position));
+        unfreezeBonkable(bonkable);
+      }
+    }
+  }
+
+  void bonk(Collision hit) {
+    canMove = false;
+    Invoke("enableMovement", 1.0f);
+    moveForce = Vector3.Reflect(moveForce.normalized, hit.contacts[0].normal) * moveForce.magnitude;
+    checkBonkables(rb.position);
+  }
+
   void OnCollisionEnter(Collision hit) {
     if (hit.gameObject.tag == "Enemy" || (hit.gameObject.tag == "Wall" && moveForce.sqrMagnitude > bonkThreshold)) {
-      canMove = false;
-      Invoke("enableMovement", 1.0f);
-      moveForce = Vector3.Reflect(moveForce.normalized, hit.contacts[0].normal) * moveForce.magnitude;
+      bonk(hit);
     }
   }
 
@@ -47,7 +68,6 @@ public class PlayerMovement : MonoBehaviour {
       rb.transform.Rotate(Vector3.up * horizontal * rotationSpeed * moveForce.magnitude * Time.deltaTime);
     }
   }
-
 
   void Update() {
     if (canMove) {
