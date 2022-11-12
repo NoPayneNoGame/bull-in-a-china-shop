@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -9,9 +8,19 @@ public class PlayerMovement : MonoBehaviour {
   public float maxSpeed = 30;
   public float drag = 0.98f;
   public float rotationSpeed = 10;
+  public float bonkThreshold = 500;
+
+  [Header("Camera Things")]
+  public CinemachineVirtualCamera vcam;
+  public float minCameraDistance = 18;
+  public float maxCameraDistance = 40;
+  public float zoomOutSpeed = .5f;
+  public float zoomInSpeed = 3;
 
   private Vector3 moveForce;
   private bool canMove = true;
+
+  private CinemachineTransposer transposer;
 
   void enableMovement() {
     canMove = true;
@@ -20,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   void OnCollisionEnter(Collision hit) {
-    if (hit.gameObject.tag == "Wall" || hit.gameObject.tag == "Enemy") {
+    if (hit.gameObject.tag == "Enemy" || (hit.gameObject.tag == "Wall" && moveForce.sqrMagnitude > bonkThreshold)) {
       canMove = false;
       Invoke("enableMovement", 1.0f);
       moveForce = Vector3.Reflect(moveForce.normalized, hit.contacts[0].normal) * moveForce.magnitude;
@@ -28,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   void Start() {
-
+    transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
   }
 
   void Update() {
@@ -41,11 +50,19 @@ public class PlayerMovement : MonoBehaviour {
       }
       // Not sure if using velocity is better here but this is easier for now
       moveForce += rb.transform.forward * moveSpeed * Time.deltaTime * vertical * drag;
-      moveForce = Vector3.ClampMagnitude(moveForce, maxSpeed);
-      rb.transform.position += moveForce * Time.deltaTime;
+      rb.velocity = Vector3.ClampMagnitude(moveForce, maxSpeed);
+
+      // rb.transform.position += moveForce * Time.deltaTime;
     } else {
       // Not a very realistic bounce when wall is approached at an angle
-      rb.transform.position += moveForce / 2 * Time.deltaTime;
+      rb.velocity = moveForce / 2;
+      // rb.transform.position += moveForce / 2 * Time.deltaTime;
     }
+
+      if (moveForce.magnitude > ((maxSpeed - moveSpeed) / 2)) {
+        transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, maxCameraDistance, zoomOutSpeed * Time.deltaTime);
+      } else {
+        transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, minCameraDistance, zoomInSpeed * Time.deltaTime);
+      }
   }
 }

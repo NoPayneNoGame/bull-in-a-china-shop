@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -9,6 +7,12 @@ public class Score : MonoBehaviour {
   public TMP_Text scoreText;
 
   private int score;
+
+  private void Start () {
+    if (scoreText != null) return;
+    Canvas canvas = FindObjectOfType<Canvas>();
+    scoreText = canvas.transform.Find("Score").GetComponent<TMP_Text>();
+  }
 
   void OnCollisionEnter(Collision hit) {
     if (hit.gameObject.tag == "Destructible") {
