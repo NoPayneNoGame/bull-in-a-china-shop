@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   void jump() {
-
+    rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
   }
 
   void OnCollisionEnter(Collision hit) {
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
       // }
 
       moveForce += rb.transform.forward * moveSpeed * Time.deltaTime * vertical * drag;
-      if (isJumping) moveForce += rb.transform.up * jumpHeight * Time.deltaTime;
+      //if (isJumping) moveForce += rb.transform.up * jumpHeight * Time.deltaTime;
 
       rb.velocity = Vector3.ClampMagnitude(moveForce, maxSpeed);
     } else {
