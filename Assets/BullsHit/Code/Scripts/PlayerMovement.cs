@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour {
   public float drag = 0.98f;
   public float rotationSpeed = 10;
   public float bonkThreshold = 500;
-  public float bonkPower = 10;
+  public float bonkPower = 10; // The max distance (in metres?) between player and bonkable object where the object will fall
+  public float jumpHeight = 10;
 
   [Header("Camera Things")]
   public CinemachineVirtualCamera vcam;
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour {
   private float horizontal;
   private Vector3 moveForce;
   private bool canMove = true;
+  private bool canJump = true;
+  private bool isJumping = false;
 
   private CinemachineTransposer transposer;
 
@@ -51,6 +54,10 @@ public class PlayerMovement : MonoBehaviour {
     checkBonkables(rb.position);
   }
 
+  void jump() {
+
+  }
+
   void OnCollisionEnter(Collision hit) {
     if (hit.gameObject.tag == "Enemy" || (hit.gameObject.tag == "Wall" && moveForce.sqrMagnitude > bonkThreshold)) {
       bonk(hit);
@@ -73,14 +80,20 @@ public class PlayerMovement : MonoBehaviour {
       horizontal = Input.GetAxisRaw("Horizontal");
       float vertical = Input.GetAxisRaw("Vertical");
 
-      moveForce += rb.transform.forward * moveSpeed * Time.deltaTime * vertical * drag;
-      rb.velocity = Vector3.ClampMagnitude(moveForce, maxSpeed);
+      if (Input.GetButtonDown("Jump")) { // Jump
+        jump();
+      }
 
-      // rb.transform.position += moveForce * Time.deltaTime;
+      // if (Input.GetKeyDown("Shift")) { // Dash
+
+      // }
+
+      moveForce += rb.transform.forward * moveSpeed * Time.deltaTime * vertical * drag;
+      if (isJumping) moveForce += rb.transform.up * jumpHeight * Time.deltaTime;
+
+      rb.velocity = Vector3.ClampMagnitude(moveForce, maxSpeed);
     } else {
-      // Not a very realistic bounce when wall is approached at an angle
       rb.velocity = moveForce / 2;
-      // rb.transform.position += moveForce / 2 * Time.deltaTime;
     }
 
     if (moveForce.magnitude > ((maxSpeed - moveSpeed) / 2)) {
