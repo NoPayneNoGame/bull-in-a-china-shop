@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour {
     GameObject[] bonkables = GameObject.FindGameObjectsWithTag("Bonkable");
     foreach (GameObject bonkable in bonkables) {
       if (Vector3.Distance(bonkable.transform.position, position) < bonkPower) {
-        Debug.Log(Vector3.Distance(bonkable.transform.position, position));
         unfreezeBonkable(bonkable);
       }
     }
