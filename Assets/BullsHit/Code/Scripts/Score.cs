@@ -5,9 +5,9 @@ using TMPro;
 public class Score : MonoBehaviour {
   // I like the idea of centralizing the score text on screen and increasing text size as you do more damage
 
-  public TMP_Text scoreText;
-  public RawImage trophyLeft;
-  public RawImage trophyRight;
+  private TMP_Text scoreText;
+  private RawImage trophyLeft;
+  private RawImage trophyRight;
   public Texture[] trophyTextures;
 
   private int score;
@@ -26,26 +26,35 @@ public class Score : MonoBehaviour {
   private Trophy lastTrophy = Trophy.none;
 
   void Start() {
-    if (scoreText != null) return;
     Canvas canvas = FindObjectOfType<Canvas>();
-    scoreText = canvas.transform.Find("Score").GetComponent<TMP_Text>();
+    scoreText = canvas.transform.Find("Score Text (TMP)").GetComponent<TMP_Text>();
+    trophyLeft = canvas.transform.Find("TrophyLeft").GetComponent<RawImage>();
+    trophyRight = canvas.transform.Find("TrophyRight").GetComponent<RawImage>();
+
 
     updateTrophyImages();
     repositionTrophies();
   }
 
-  void OnCollisionEnter(Collision hit) {
-    if (hit.gameObject.tag == "Destructible") {
-      ScoreValue scoreValue;
-      // Since OpenFragments inherit the Destructible tag from their parent we will get an error on collision with them if we try to access the ScoreValue script
-      if (scoreValue = hit.gameObject.GetComponent<ScoreValue>()) {
-        int objectValue = scoreValue.value;
-        scoreValue.setValue(0);
-        score += objectValue;
-      }
-      scoreText.text = "$" + score;
-      updateTrophyImages();
-    }
+  // Code for if Score.cs is attached to Player object
+  // void OnCollisionEnter(Collision hit) {
+  //   if (hit.gameObject.tag == "Destructible") {
+  //     ScoreValue scoreValue;
+  //     // Since OpenFragments inherit the Destructible tag from their parent we will get an error on collision with them if we try to access the ScoreValue script
+  //     if (scoreValue = hit.gameObject.GetComponent<ScoreValue>()) {
+  //       int objectValue = scoreValue.value;
+  //       scoreValue.setValue(0);
+  //       score += objectValue;
+  //     }
+  //     scoreText.text = "$" + score;
+  //     updateTrophyImages();
+  //   }
+  // }
+
+  public void onFracture(Collider hit, GameObject destructible, Vector3 pos) {
+    score += destructible.GetComponent<ScoreValue>().value;
+    scoreText.text = "$" + score;
+    updateTrophyImages();
   }
 
   void onTrophyChange() {
