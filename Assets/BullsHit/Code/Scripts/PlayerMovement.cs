@@ -113,6 +113,7 @@ public class PlayerMovement : MonoBehaviour {
         canDash = false;
         Invoke("endDash", dashDuration);
         Invoke("enableDash", dashCooldown);
+
       }
     }
   }
