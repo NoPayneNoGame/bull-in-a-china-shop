@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour {
   private bool shouldJump = false;
   private bool shouldDash = false;
   private bool canDash = true;
-  private float dashCooldown = 0.5f;
+  private float dashCooldown = 1f;
   private float dashDuration = 0.2f;
 
   private CinemachineTransposer transposer;
@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour {
 
   void endDash() {
     shouldDash = false;
+    dashLight.SetActive(false);
   }
 
   void unfreezeBonkable(GameObject bonkable) {
@@ -71,8 +72,6 @@ public class PlayerMovement : MonoBehaviour {
     rb.AddForce(reflected, ForceMode.Impulse);
     checkBonkables(rb.position);
   }
-
-
 
   void OnCollisionEnter(Collision hit) {
     if ((hit.gameObject.tag == "Enemy" || (hit.gameObject.tag == "Wall")) && currentSpeed > bonkThreshold) {
@@ -106,11 +105,12 @@ public class PlayerMovement : MonoBehaviour {
       }
       if (shouldDash && canDash) {
         rb.velocity = Vector3.zero;
-        rb.AddForce(rb.transform.forward * moveSpeed * 50f);
+        rb.AddForce(moveSpeed * 50f * vertical * rb.transform.forward);
         canDash = false;
+        // TODO: Don't love the look of the light. Might want to try make the model tinted instead or use an animation
+        dashLight.SetActive(true);
         Invoke("endDash", dashDuration);
         Invoke("enableDash", dashCooldown);
-
       }
     }
   }
