@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour {
     shouldJump = Input.GetButton("Jump");
 
     // For monitoring speed
-    currentSpeed = Vector3.Distance(prevPosition, rb.transform.position) * 100;
+    currentSpeed = Vector3.Distance(prevPosition, rb.transform.position); // This is sometimes 0 even while moving
     prevPosition = rb.transform.position;
 
     Debug.Log(currentSpeed);
