@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
       propertyPath: bonkThreshold
-      value: 0.1
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 1005300927630650627, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
       propertyPath: m_Mass
