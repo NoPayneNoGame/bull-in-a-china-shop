@@ -105,7 +105,8 @@ public class PlayerMovement : MonoBehaviour {
       }
       if (shouldDash && canDash) {
         rb.velocity = Vector3.zero;
-        rb.AddForce(moveSpeed * 50f * vertical * rb.transform.forward);
+        float dashDirection = vertical != 0 ? vertical : 1;
+        rb.AddForce(moveSpeed * 50f * dashDirection * rb.transform.forward);
         canDash = false;
         // TODO: Don't love the look of the light. Might want to try make the model tinted instead or use an animation
         dashLight.SetActive(true);
