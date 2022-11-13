@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
   public float bonkPower = 10; // The max distance (in metres?) between player and bonkable object where the object will fall
   public float jumpHeight = 10;
   public float fallSpeed = 10;
+  [SerializeField] private GameObject dashLight;
 
   [Header("Camera Things")]
   public CinemachineVirtualCamera vcam;
@@ -27,6 +28,11 @@ public class PlayerMovement : MonoBehaviour {
   private bool canMove = true;
   private bool canJump = true;
   private bool shouldJump = false;
+  private bool shouldDash = false;
+  private bool canDash = true;
+  private float dashCooldown = 0.5f;
+  private float dashDuration = 0.2f;
+  private Renderer bullRenderer;
 
   private CinemachineTransposer transposer;
 
@@ -34,6 +40,14 @@ public class PlayerMovement : MonoBehaviour {
     canMove = true;
     // This is a temp fix for the player getting stuck in a loop after hitting a wall and then not having a vertical input / change in rotation
     //moveForce = new Vector3(0, 0, 0);
+  }
+
+  void enableDash() {
+    canDash = true;
+  }
+
+  void endDash() {
+    shouldDash = false;
   }
 
   void unfreezeBonkable(GameObject bonkable) {
@@ -65,7 +79,6 @@ public class PlayerMovement : MonoBehaviour {
     if ((hit.gameObject.tag == "Enemy" || (hit.gameObject.tag == "Wall")) && currentSpeed > bonkThreshold) {
       bonk(hit);
     }
-
   }
 
   void OnCollisionStay(Collision hit) {
@@ -76,15 +89,16 @@ public class PlayerMovement : MonoBehaviour {
 
   void Start() {
     transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
+    bullRenderer = gameObject.GetComponent<Renderer>();
   }
 
   void FixedUpdate() {
     if (canMove) {
-      if (horizontal != 0) {
+      if (horizontal != 0 && !shouldDash) {
         // Remove rb.velocity.magnitude if we want rotation while not moving
         rb.transform.Rotate(Vector3.up * horizontal * rotationSpeed * rb.velocity.magnitude * Time.deltaTime);
       }
-      if (vertical != 0) {
+      if (vertical != 0 && !shouldDash) {
         moveForce = rb.transform.forward * vertical * moveSpeed;
         rb.AddForce(moveForce);
       }
@@ -92,9 +106,15 @@ public class PlayerMovement : MonoBehaviour {
         rb.AddForce(rb.transform.up * jumpHeight, ForceMode.Impulse);
         canJump = false;
       }
+      if (shouldDash && canDash) {
+        rb.velocity = Vector3.zero;
+        rb.AddForce(rb.transform.forward * moveSpeed * 50f);
+        bullRenderer.material.SetColor("_Color", Color.red);
+        canDash = false;
+        Invoke("endDash", dashDuration);
+        Invoke("enableDash", dashCooldown);
+      }
     }
-
-
   }
 
   void Update() {
@@ -102,6 +122,7 @@ public class PlayerMovement : MonoBehaviour {
     horizontal = Input.GetAxisRaw("Horizontal");
     vertical = Input.GetAxisRaw("Vertical");
     shouldJump = Input.GetButton("Jump");
+    shouldDash = Input.GetButton("Dash");
 
     // For monitoring speed
     if (prevPosition != rb.transform.position) {
@@ -109,9 +130,6 @@ public class PlayerMovement : MonoBehaviour {
       prevPosition = rb.transform.position;
     }
 
-
-    Debug.Log(currentSpeed * 2000);
-    // Debug.Log(moveSpeed / 1000);
     if (currentSpeed > moveSpeed / 1000) {
       transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, maxCameraDistance, zoomOutSpeed * Time.deltaTime);
     } else {
