@@ -104,11 +104,14 @@ public class PlayerMovement : MonoBehaviour {
     shouldJump = Input.GetButton("Jump");
 
     // For monitoring speed
-    currentSpeed = Vector3.Distance(prevPosition, rb.transform.position); // This is sometimes 0 even while moving
-    prevPosition = rb.transform.position;
+    if (prevPosition != rb.transform.position) {
+      currentSpeed = Vector3.Distance(prevPosition, rb.transform.position); // This is sometimes 0 even while moving
+      prevPosition = rb.transform.position;
+    }
 
-    Debug.Log(currentSpeed);
-    Debug.Log(moveSpeed / 1000);
+
+    Debug.Log(currentSpeed * 2000);
+    // Debug.Log(moveSpeed / 1000);
     if (currentSpeed > moveSpeed / 1000) {
       transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, maxCameraDistance, zoomOutSpeed * Time.deltaTime);
     } else {
