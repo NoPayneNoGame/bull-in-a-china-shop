@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour {
   private bool canDash = true;
   private float dashCooldown = 0.5f;
   private float dashDuration = 0.2f;
-  private Renderer bullRenderer;
 
   private CinemachineTransposer transposer;
 
@@ -89,7 +88,6 @@ public class PlayerMovement : MonoBehaviour {
 
   void Start() {
     transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
-    bullRenderer = gameObject.GetComponent<Renderer>();
   }
 
   void FixedUpdate() {
@@ -109,7 +107,6 @@ public class PlayerMovement : MonoBehaviour {
       if (shouldDash && canDash) {
         rb.velocity = Vector3.zero;
         rb.AddForce(rb.transform.forward * moveSpeed * 50f);
-        bullRenderer.material.SetColor("_Color", Color.red);
         canDash = false;
         Invoke("endDash", dashDuration);
         Invoke("enableDash", dashCooldown);
