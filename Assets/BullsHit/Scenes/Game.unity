@@ -410,6 +410,10 @@ PrefabInstance:
       value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: jumpHeight
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
       propertyPath: jumpDuration
       value: 0.2
       objectReference: {fileID: 0}
