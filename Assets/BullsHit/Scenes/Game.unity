@@ -405,6 +405,26 @@ PrefabInstance:
       propertyPath: bonkPower
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: moveSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: jumpDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: bonkThreshold
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650627, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650627, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 1005300927630650636, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
       propertyPath: m_Name
       value: Player

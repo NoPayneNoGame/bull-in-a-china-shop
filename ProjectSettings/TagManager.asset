@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - HUD
   - Bonkable
+  - Floor
   layers:
   - Default
   - TransparentFX
