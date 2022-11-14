@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour {
   public float jumpHeight = 10;
   public float fallSpeed = 10;
   [SerializeField] private GameObject dashLight;
+  [SerializeField] private float dashMultiplier = 50f;
+  [SerializeField] private float dashCooldown = 1f;
+  [SerializeField] private float dashDuration = 0.2f;
 
   [Header("Camera Things")]
   public CinemachineVirtualCamera vcam;
@@ -30,8 +33,7 @@ public class PlayerMovement : MonoBehaviour {
   private bool shouldJump = false;
   private bool shouldDash = false;
   private bool canDash = true;
-  private float dashCooldown = 1f;
-  private float dashDuration = 0.2f;
+
 
   private CinemachineTransposer transposer;
 
@@ -106,7 +108,7 @@ public class PlayerMovement : MonoBehaviour {
       if (shouldDash && canDash) {
         rb.velocity = Vector3.zero;
         float dashDirection = vertical != 0 ? vertical : 1;
-        rb.AddForce(moveSpeed * 50f * dashDirection * rb.transform.forward);
+        rb.AddForce(moveSpeed * dashMultiplier * dashDirection * rb.transform.forward);
         canDash = false;
         // TODO: Don't love the look of the light. Might want to try make the model tinted instead or use an animation
         dashLight.SetActive(true);
