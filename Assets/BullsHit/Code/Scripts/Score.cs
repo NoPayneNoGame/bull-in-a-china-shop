@@ -9,6 +9,10 @@ public class Score : MonoBehaviour {
   private RawImage trophyLeft;
   private RawImage trophyRight;
   public Texture[] trophyTextures;
+  [SerializeField] private GameObject floatingTextPrefab;
+  private Camera cam;
+  private Canvas canvas;
+  private RectTransform canvasRect;
 
   private int score;
   private int maxScore = 160; // Generate this based on all score value scripts in scene?
@@ -27,11 +31,13 @@ public class Score : MonoBehaviour {
 
   void Start() {
     // Is this problematic? Might break ChinaShop scene if HUD isn't in scene
-    Canvas canvas = FindObjectOfType<Canvas>();
+    canvas = FindObjectOfType<Canvas>();
+    canvasRect = canvas.GetComponent<RectTransform>();
     scoreText = canvas.transform.Find("Score Text (TMP)").GetComponent<TMP_Text>();
+    //floatingText = canvas.transform.Find("Floating Text (TMP)").GetComponent<TMP_Text>();
     trophyLeft = canvas.transform.Find("TrophyLeft").GetComponent<RawImage>();
     trophyRight = canvas.transform.Find("TrophyRight").GetComponent<RawImage>();
-
+    cam = Camera.main;
     maxScore = getMaxScore();
     updateTrophyImages();
     repositionTrophies();
@@ -62,10 +68,25 @@ public class Score : MonoBehaviour {
   //   }
   // }
 
+  // Convert this to class so I can track position and animate
+  void floatingScoreTextCanvas(Vector3 pos, int score) {
+    Vector2 viewportPosition = cam.WorldToViewportPoint(pos);
+    Vector2 screenPosition = new Vector2(
+    ((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f)),
+    ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f)));
+
+    GameObject floatingText = Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
+    floatingText.transform.SetParent(canvas.transform);
+    RectTransform floatingTextRect = floatingText.GetComponent<RectTransform>();
+    floatingTextRect.anchoredPosition = screenPosition;
+  }
+
   public void onFracture(Collider hit, GameObject destructible, Vector3 pos) {
-    score += destructible.GetComponent<ScoreValue>().value;
+    int scoreIncrease = destructible.GetComponent<ScoreValue>().value;
+    score += scoreIncrease;
     scoreText.text = "$" + score;
     updateTrophyImages();
+    floatingScoreTextCanvas(destructible.transform.position, scoreIncrease);
   }
 
   void onTrophyChange() {
