@@ -32,7 +32,6 @@ public class Score : MonoBehaviour {
   void Start() {
     // Is this problematic? Might break ChinaShop scene if HUD isn't in scene
     canvas = FindObjectOfType<Canvas>();
-    canvasRect = canvas.GetComponent<RectTransform>();
     scoreText = canvas.transform.Find("Score Text (TMP)").GetComponent<TMP_Text>();
     //floatingText = canvas.transform.Find("Floating Text (TMP)").GetComponent<TMP_Text>();
     trophyLeft = canvas.transform.Find("TrophyLeft").GetComponent<RawImage>();
@@ -68,17 +67,10 @@ public class Score : MonoBehaviour {
   //   }
   // }
 
-  // Convert this to class so I can track position and animate
-  void floatingScoreTextCanvas(Vector3 pos, int score) {
-    Vector2 viewportPosition = cam.WorldToViewportPoint(pos);
-    Vector2 screenPosition = new Vector2(
-    ((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f)),
-    ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f)));
-
-    GameObject floatingText = Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
-    floatingText.transform.SetParent(canvas.transform);
-    RectTransform floatingTextRect = floatingText.GetComponent<RectTransform>();
-    floatingTextRect.anchoredPosition = screenPosition;
+  void createFloatingText(Vector3 pos, string text) {
+    GameObject floatingTextObject = Instantiate(floatingTextPrefab, Vector3.zero, Quaternion.identity);
+    FloatingText floatingTextScript = floatingTextObject.GetComponent<FloatingText>();
+    floatingTextScript.constructor(canvas, cam, floatingTextObject, pos, text);
   }
 
   public void onFracture(Collider hit, GameObject destructible, Vector3 pos) {
@@ -86,7 +78,7 @@ public class Score : MonoBehaviour {
     score += scoreIncrease;
     scoreText.text = "$" + score;
     updateTrophyImages();
-    floatingScoreTextCanvas(destructible.transform.position, scoreIncrease);
+    createFloatingText(destructible.transform.position, "$" + scoreIncrease);
   }
 
   void onTrophyChange() {
