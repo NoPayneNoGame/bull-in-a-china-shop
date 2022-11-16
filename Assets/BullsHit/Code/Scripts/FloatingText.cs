@@ -5,15 +5,19 @@ using TMPro;
 
 public class FloatingText : MonoBehaviour {
 
-  //private GameObject floatingTextPrefab;
   private Vector3 spawn;
   private Vector2 position;
   private string text;
   private GameObject floatingTextObject;
   private RectTransform floatingTextRect;
+  private TMP_Text floatingTextTMP;
   private Camera cam;
   private Canvas canvas;
   private RectTransform canvasRect;
+  private Color floatingTextColor;
+  private float reductionInAlphaPerSecond = 0.5f;
+  private float textOffset = 0;
+  private float textOffsetInterval = 20f;
 
   public void constructor(Canvas canvas, Camera cam, GameObject floatingTextObject, Vector3 spawn, string text) {
     this.text = text;
@@ -21,6 +25,21 @@ public class FloatingText : MonoBehaviour {
     this.floatingTextObject = floatingTextObject;
     this.cam = cam;
     this.canvas = canvas;
+  }
+
+  Vector2 applyTextOffset(Vector2 pos) {
+    textOffset -= textOffsetInterval * Time.deltaTime;
+    return new Vector2(pos.x, pos.y - textOffset);
+  }
+
+  void fadeText() {
+    floatingTextColor = new Color(floatingTextColor.r, floatingTextColor.g, floatingTextColor.b, floatingTextColor.a - reductionInAlphaPerSecond * Time.deltaTime);
+    floatingTextTMP.color = floatingTextColor;
+  }
+
+  void animateText() {
+    positionText();
+    fadeText();
   }
 
   Vector2 getCanvasPositionFromWorldPosition(Vector3 pos) {
@@ -34,12 +53,14 @@ public class FloatingText : MonoBehaviour {
     Vector2 screenPosition = getCanvasPositionFromWorldPosition(spawn);
     floatingTextObject.transform.SetParent(canvas.transform);
     floatingTextRect = floatingTextObject.GetComponent<RectTransform>();
-    floatingTextObject.GetComponent<TMP_Text>().text = text;
+    floatingTextTMP = floatingTextObject.GetComponent<TMP_Text>();
+    floatingTextTMP.text = text;
+    floatingTextColor = floatingTextTMP.color;
     positionText();
   }
 
   void positionText() {
-    floatingTextRect.anchoredPosition = getCanvasPositionFromWorldPosition(spawn);
+    floatingTextRect.anchoredPosition = applyTextOffset(getCanvasPositionFromWorldPosition(spawn));
   }
 
   void Start() {
@@ -49,6 +70,7 @@ public class FloatingText : MonoBehaviour {
 
   void Update() {
     if (floatingTextObject == null) return;
-    positionText();
+    if (floatingTextColor.a <= 0) Destroy(floatingTextObject);
+    animateText();
   }
 }
