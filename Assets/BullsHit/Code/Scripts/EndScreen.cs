@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class EndScreen : MonoBehaviour {
 
   [SerializeField] private RawImage endScreenTrophy;
@@ -23,6 +25,15 @@ public class EndScreen : MonoBehaviour {
 
   public void levelInProgress() {
     gameObject.SetActive(false);
+  }
+
+  public void buttonRestart() {
+    // This should be moved to its own script
+    SceneManager.LoadScene("Core");
+    SceneManager.LoadScene("AudioCore", LoadSceneMode.Additive);
+    SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+    SceneManager.LoadScene("Game UI", LoadSceneMode.Additive);
+    SceneManager.LoadScene("ChinaShop", LoadSceneMode.Additive);
   }
 
   void Start() {
