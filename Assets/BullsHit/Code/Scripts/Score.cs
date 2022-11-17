@@ -12,15 +12,16 @@ public class Score : MonoBehaviour {
   [SerializeField] private GameObject floatingTextPrefab;
   private Camera cam;
   private Canvas canvas;
+  private EndScreen endScreenScript;
   private RectTransform canvasRect;
 
   private int score;
-  private int maxScore = 160; // Generate this based on all score value scripts in scene?
+  private int maxScore = 160;
   private float green = 0.8705883f;
   private float trophyOffset = 20;
   private float scoreWidth;
 
-  enum Trophy {
+  public enum Trophy {
     bronze,
     silver,
     gold,
@@ -32,10 +33,11 @@ public class Score : MonoBehaviour {
   void Start() {
     // Is this problematic? Might break ChinaShop scene if HUD isn't in scene
     canvas = FindObjectOfType<Canvas>();
-    scoreText = canvas.transform.Find("Score Text (TMP)").GetComponent<TMP_Text>();
+    scoreText = canvas.transform.Find("HUD").Find("Score Text (TMP)").GetComponent<TMP_Text>();
     //floatingText = canvas.transform.Find("Floating Text (TMP)").GetComponent<TMP_Text>();
-    trophyLeft = canvas.transform.Find("TrophyLeft").GetComponent<RawImage>();
-    trophyRight = canvas.transform.Find("TrophyRight").GetComponent<RawImage>();
+    trophyLeft = canvas.transform.Find("HUD").Find("TrophyLeft").GetComponent<RawImage>();
+    trophyRight = canvas.transform.Find("HUD").Find("TrophyRight").GetComponent<RawImage>();
+    endScreenScript = canvas.transform.Find("EndGame").GetComponent<EndScreen>();
     cam = Camera.main;
     maxScore = getMaxScore();
     updateTrophyImages();
@@ -84,6 +86,10 @@ public class Score : MonoBehaviour {
   void onTrophyChange() {
     increaseFontIntensity();
     repositionTrophies();
+    if (getTrophy() == Trophy.gold) {
+      // End game
+      endScreenScript.levelOver();
+    }
   }
 
   void repositionTrophies() {
@@ -102,7 +108,7 @@ public class Score : MonoBehaviour {
     scoreText.fontSize += 6;
   }
 
-  Trophy getTrophy() {
+  public Trophy getTrophy() {
     // Not sure how we decide this. Just 1/3 of max, 2/3 max, 100%? (95%? so you can miss a couple and not be punished)
     float[] trophyScores = new float[3] { maxScore / 3, maxScore / 3 * 2, maxScore };
     if (score < trophyScores[0]) {

@@ -13,6 +13,9 @@ public class Timer : MonoBehaviour {
   private int lastSeconds;
   private bool textSizeIncreasing = true;
 
+  [SerializeField] private GameObject endScreen;
+  private EndScreen endScreenScript;
+
   void displayTime() {
     float time = timeRemaining + 1;
     float minutes = Mathf.FloorToInt(time / 60);
@@ -50,6 +53,10 @@ public class Timer : MonoBehaviour {
     }
   }
 
+  void Start() {
+    endScreenScript = endScreen.GetComponent<EndScreen>();
+  }
+
   void Update() {
     if (timeRemaining > 0) {
       timeRemaining -= Time.deltaTime;
@@ -57,8 +64,10 @@ public class Timer : MonoBehaviour {
       if (checkTick() && timeRemaining < 10) increaseFontIntensity();
     } else {
       // Timer ran out
-      notifyText.text = "Wow you suck!";
-      animateTextSize(notifyText, 102, 97);
+      // notifyText.text = "Wow you suck!";
+      // animateTextSize(notifyText, 102, 97);
+      // Activate the end screen
+      endScreenScript.levelOver();
     }
   }
 }
