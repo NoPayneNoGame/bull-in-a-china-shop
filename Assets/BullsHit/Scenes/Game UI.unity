@@ -876,6 +876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9a979172716c941bfcb03353fb6458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endScreenTrophy: {fileID: 12639591}
+  endScoreText: {fileID: 1645267181}
+  endLevelText: {fileID: 1954575456}
 --- !u!1 &625479802
 GameObject:
   m_ObjectHideFlags: 0

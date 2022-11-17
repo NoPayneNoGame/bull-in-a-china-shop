@@ -75,7 +75,12 @@ public class Score : MonoBehaviour {
     floatingTextScript.constructor(canvas, cam, floatingTextObject, pos, text);
   }
 
+  public int getScore() {
+    return score;
+  }
+
   public void onFracture(Collider hit, GameObject destructible, Vector3 pos) {
+    // TODO: Bug fix set score value to 0 after one fracture
     int scoreIncrease = destructible.GetComponent<ScoreValue>().value;
     score += scoreIncrease;
     scoreText.text = "$" + score;
@@ -121,6 +126,10 @@ public class Score : MonoBehaviour {
       return Trophy.silver;
     }
     return Trophy.gold;
+  }
+
+  public Texture getTrophyTexture() {
+    return trophyTextures[(int)getTrophy()];
   }
 
   void updateTrophyImages() {

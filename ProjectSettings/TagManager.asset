@@ -11,6 +11,7 @@ TagManager:
   - HUD
   - Bonkable
   - Floor
+  - Score
   layers:
   - Default
   - TransparentFX

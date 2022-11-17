@@ -16,6 +16,8 @@ public class Timer : MonoBehaviour {
   [SerializeField] private GameObject endScreen;
   private EndScreen endScreenScript;
 
+  private bool timerPaused = false;
+
   void displayTime() {
     float time = timeRemaining + 1;
     float minutes = Mathf.FloorToInt(time / 60);
@@ -53,13 +55,17 @@ public class Timer : MonoBehaviour {
     }
   }
 
+  public void pauseTimer() {
+    timerPaused = true;
+  }
+
   void Start() {
     endScreenScript = endScreen.GetComponent<EndScreen>();
   }
 
   void Update() {
     if (timeRemaining > 0) {
-      timeRemaining -= Time.deltaTime;
+      if (!timerPaused) timeRemaining -= Time.deltaTime;
       displayTime();
       if (checkTick() && timeRemaining < 10) increaseFontIntensity();
     } else {
