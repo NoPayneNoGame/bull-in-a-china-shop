@@ -520,6 +520,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -704,6 +706,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -1262,6 +1266,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -1446,6 +1452,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -1630,6 +1638,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -2926,6 +2936,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -3110,7 +3122,7 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
-    - Floor
+    - Destructible
     - Bonkable
     triggerKey: 0
   fractureOptions:
@@ -4119,6 +4131,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -4651,7 +4665,7 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
-    - Floor
+    - Destructible
     - Bonkable
     triggerKey: 0
   fractureOptions:
@@ -6881,6 +6895,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -7409,6 +7425,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -7655,6 +7673,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -8351,6 +8371,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -8567,6 +8589,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
@@ -9079,6 +9103,8 @@ MonoBehaviour:
     triggerAllowedTags:
     - Player
     - Enemy
+    - Destructible
+    - Bonkable
     triggerKey: 0
   fractureOptions:
     fragmentCount: 32
