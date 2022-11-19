@@ -17,9 +17,9 @@ public class PlayerMovement : MonoBehaviour {
   public float fallSpeed = 10;
 
   [Tooltip("Seconds to go from current speed to nearly zero.")]
-  public float breakTime = 0.2f; // seconds
-  [Tooltip("Minimum speed to stop the breaking animation and return to run/idle even if still holding the break key.")]
-  public float minSpeedForBreakAnim = 2;
+  public float brakeTime = 0.2f; // seconds
+  [Tooltip("Minimum speed to stop the braking animation and return to run/idle even if still holding the brake key.")]
+  public float minSpeedForBrakeAnim = 2;
   [Tooltip("Seconds to remain stunned after bonking.")]
   public float stunDuration = 1f; // seconds
 
@@ -142,10 +142,10 @@ public class PlayerMovement : MonoBehaviour {
       }
 
       if (shouldBrake) {
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime * (1 / breakTime));
-        animator.SetBool("Breaking", rb.velocity.magnitude >= minSpeedForBreakAnim); // stop the breaking anim once slow enough
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime * (1 / brakeTime));
+        animator.SetBool("Braking", rb.velocity.magnitude >= minSpeedForBrakeAnim); // stop the braking anim once slow enough
       } else {
-        animator.SetBool("Breaking", false);
+        animator.SetBool("Braking", false);
       }
     }
   }
