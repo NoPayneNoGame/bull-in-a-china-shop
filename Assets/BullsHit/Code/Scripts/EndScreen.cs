@@ -28,7 +28,7 @@ public class EndScreen : MonoBehaviour {
   }
 
   public void buttonRestart() {
-    // This should be moved to its own script
+    // This should be moved to its own script also bugs out the lighting
     SceneManager.LoadScene("Core");
     SceneManager.LoadScene("AudioCore", LoadSceneMode.Additive);
     SceneManager.LoadScene("Game", LoadSceneMode.Additive);

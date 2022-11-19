@@ -80,8 +80,9 @@ public class Score : MonoBehaviour {
   }
 
   public void onFracture(Collider hit, GameObject destructible, Vector3 pos) {
-    // TODO: Bug fix set score value to 0 after one fracture
-    int scoreIncrease = destructible.GetComponent<ScoreValue>().value;
+    ScoreValue scoreValueScript = destructible.GetComponent<ScoreValue>();
+    int scoreIncrease = scoreValueScript.value;
+    scoreValueScript.setValue(0); // Set value to 0 after grabbing the value to prevent duplicate scores
     score += scoreIncrease;
     scoreText.text = "$" + score;
     updateTrophyImages();
