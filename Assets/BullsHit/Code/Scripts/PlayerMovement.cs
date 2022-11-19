@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
   private bool shouldJump = false;
   private bool shouldDash = false;
   private bool canDash = true;
-
+  private bool shouldBrake = false;
 
   private CinemachineTransposer transposer;
 
@@ -115,6 +115,9 @@ public class PlayerMovement : MonoBehaviour {
         Invoke("endDash", dashDuration);
         Invoke("enableDash", dashCooldown);
       }
+      if (shouldBrake) {
+        rb.velocity = rb.velocity * 0.9f;
+      }
     }
   }
 
@@ -124,6 +127,7 @@ public class PlayerMovement : MonoBehaviour {
     vertical = Input.GetAxisRaw("Vertical");
     shouldJump = Input.GetButton("Jump");
     shouldDash = Input.GetButton("Dash");
+    shouldBrake = Input.GetButton("Brake");
 
     // For monitoring speed
     if (prevPosition != rb.transform.position) {
