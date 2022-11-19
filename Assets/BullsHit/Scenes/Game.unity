@@ -401,6 +401,10 @@ PrefabInstance:
       propertyPath: vcam
       value: 
       objectReference: {fileID: 557508426}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: bonkPower
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1005300927630650636, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
       propertyPath: m_Name
       value: Player
