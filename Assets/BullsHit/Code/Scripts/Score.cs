@@ -32,9 +32,19 @@ public class Score : MonoBehaviour {
     trophyLeft = canvas.transform.Find("TrophyLeft").GetComponent<RawImage>();
     trophyRight = canvas.transform.Find("TrophyRight").GetComponent<RawImage>();
 
-
+    maxScore = getMaxScore();
     updateTrophyImages();
     repositionTrophies();
+  }
+
+  int getMaxScore() {
+    int total = 0;
+    GameObject[] destructibles = GameObject.FindGameObjectsWithTag("Destructible");
+    foreach (GameObject destructible in destructibles) {
+      // Probably want error checking here
+      total += destructible.GetComponent<ScoreValue>().value;
+    }
+    return total;
   }
 
   // Code for if Score.cs is attached to Player object
