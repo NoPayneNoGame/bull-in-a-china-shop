@@ -5,11 +5,12 @@ public class PlayerMovement : MonoBehaviour {
 
   public Rigidbody rb;
   public float moveSpeed = 20;
-  public float maxSpeed = 30;
   public float drag = 0.98f;
   public float rotationSpeed = 10;
   public float bonkThreshold = 500;
-  public float bonkPower = 10;
+  public float bonkPower = 10; // The max distance (in metres?) between player and bonkable object where the object will fall
+  public float jumpHeight = 10;
+  public float fallSpeed = 10;
 
   [Header("Camera Things")]
   public CinemachineVirtualCamera vcam;
@@ -19,15 +20,20 @@ public class PlayerMovement : MonoBehaviour {
   public float zoomInSpeed = 3;
 
   private float horizontal;
+  private float vertical;
   private Vector3 moveForce;
+  private Vector3 prevPosition;
+  private float currentSpeed;
   private bool canMove = true;
+  private bool canJump = true;
+  private bool shouldJump = false;
 
   private CinemachineTransposer transposer;
 
   void enableMovement() {
     canMove = true;
     // This is a temp fix for the player getting stuck in a loop after hitting a wall and then not having a vertical input / change in rotation
-    moveForce = new Vector3(0, 0, 0);
+    //moveForce = new Vector3(0, 0, 0);
   }
 
   void unfreezeBonkable(GameObject bonkable) {
@@ -47,13 +53,24 @@ public class PlayerMovement : MonoBehaviour {
   void bonk(Collision hit) {
     canMove = false;
     Invoke("enableMovement", 1.0f);
-    moveForce = Vector3.Reflect(moveForce.normalized, hit.contacts[0].normal) * moveForce.magnitude;
+    Vector3 reflected = Vector3.Reflect(moveForce, hit.contacts[0].normal) / 2;
+    rb.velocity = Vector3.zero;
+    rb.AddForce(reflected, ForceMode.Impulse);
     checkBonkables(rb.position);
   }
 
+
+
   void OnCollisionEnter(Collision hit) {
-    if (hit.gameObject.tag == "Enemy" || (hit.gameObject.tag == "Wall" && moveForce.sqrMagnitude > bonkThreshold)) {
+    if ((hit.gameObject.tag == "Enemy" || (hit.gameObject.tag == "Wall")) && currentSpeed > bonkThreshold) {
       bonk(hit);
+    }
+
+  }
+
+  void OnCollisionStay(Collision hit) {
+    if (hit.gameObject.tag == "Floor") {
+      canJump = true;
     }
   }
 
@@ -62,28 +79,40 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   void FixedUpdate() {
-    if (horizontal != 0) {
-      // Remove moveForce.magnitude if we want rotation while not moving
-      rb.transform.Rotate(Vector3.up * horizontal * rotationSpeed * moveForce.magnitude * Time.deltaTime);
+    if (canMove) {
+      if (horizontal != 0) {
+        // Remove rb.velocity.magnitude if we want rotation while not moving
+        rb.transform.Rotate(Vector3.up * horizontal * rotationSpeed * rb.velocity.magnitude * Time.deltaTime);
+      }
+      if (vertical != 0) {
+        moveForce = rb.transform.forward * vertical * moveSpeed;
+        rb.AddForce(moveForce);
+      }
+      if (shouldJump && canJump) {
+        rb.AddForce(rb.transform.up * jumpHeight, ForceMode.Impulse);
+        canJump = false;
+      }
     }
+
+
   }
 
   void Update() {
-    if (canMove) {
-      horizontal = Input.GetAxisRaw("Horizontal");
-      float vertical = Input.GetAxisRaw("Vertical");
 
-      moveForce += rb.transform.forward * moveSpeed * Time.deltaTime * vertical * drag;
-      rb.velocity = Vector3.ClampMagnitude(moveForce, maxSpeed);
+    horizontal = Input.GetAxisRaw("Horizontal");
+    vertical = Input.GetAxisRaw("Vertical");
+    shouldJump = Input.GetButton("Jump");
 
-      // rb.transform.position += moveForce * Time.deltaTime;
-    } else {
-      // Not a very realistic bounce when wall is approached at an angle
-      rb.velocity = moveForce / 2;
-      // rb.transform.position += moveForce / 2 * Time.deltaTime;
+    // For monitoring speed
+    if (prevPosition != rb.transform.position) {
+      currentSpeed = Vector3.Distance(prevPosition, rb.transform.position); // This is sometimes 0 even while moving
+      prevPosition = rb.transform.position;
     }
 
-    if (moveForce.magnitude > ((maxSpeed - moveSpeed) / 2)) {
+
+    Debug.Log(currentSpeed * 2000);
+    // Debug.Log(moveSpeed / 1000);
+    if (currentSpeed > moveSpeed / 1000) {
       transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, maxCameraDistance, zoomOutSpeed * Time.deltaTime);
     } else {
       transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, minCameraDistance, zoomInSpeed * Time.deltaTime);
