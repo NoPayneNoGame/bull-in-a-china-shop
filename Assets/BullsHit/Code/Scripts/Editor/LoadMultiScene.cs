@@ -21,7 +21,7 @@ public class LoadMultiScene : Editor {
       "Assets/BullsHit/Scenes/AudioCore.unity",
       "Assets/BullsHit/Scenes/Game.unity",
       "Assets/BullsHit/Scenes/Game UI.unity",
-      "Assets/BullsHit/Scenes/ChinaShop.unity",
+      "Assets/BullsHit/Scenes/ChinaShopElise.unity",
     };
 
     SceneSetup[] scenes = new SceneSetup[5];
