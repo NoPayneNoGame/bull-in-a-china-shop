@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/BullsHit/Scenes/MainMenu.unity
+    guid: d548b923d0bb2704aab88389a0ec2517
   m_configObjects: {}
