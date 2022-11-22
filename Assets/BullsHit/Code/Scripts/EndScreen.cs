@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
+
 
 public class EndScreen : MonoBehaviour {
 
@@ -28,19 +28,6 @@ public class EndScreen : MonoBehaviour {
   }
 
   public void buttonRestart() {
-    // This should be moved to its own script also bugs out the lighting
-    SceneManager.LoadScene("Core");
-    SceneManager.LoadScene("AudioCore", LoadSceneMode.Additive);
-    SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-    SceneManager.LoadScene("Game UI", LoadSceneMode.Additive);
-    SceneManager.LoadScene("ChinaShop", LoadSceneMode.Additive);
-  }
-
-  void Start() {
-
-  }
-
-  void Update() {
-
+    SceneController.instance.reloadLevel();
   }
 }

@@ -12,6 +12,7 @@ TagManager:
   - Bonkable
   - Floor
   - Score
+  - SceneController
   layers:
   - Default
   - TransparentFX
