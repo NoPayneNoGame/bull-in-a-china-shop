@@ -4,6 +4,7 @@ using UnityEngine;
 public class MenuClickHandler : MonoBehaviour {
   public void Play() {
     Debug.Log("Play");
+    SceneController.instance.loadLevel(0);
   }
 
   public void Credits() {
