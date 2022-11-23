@@ -8,6 +8,9 @@ public class SceneController : MonoBehaviour {
 
   public static SceneController instance { get; private set; }
   private string[] nonLevelScenes = new string[] { "Core", "AudioCore", "Game", "Game UI" };
+  private string[] essentialScenes = new string[] { "Core", "AudioCore" };
+
+  // TODO: Active scene is always core for some reason
 
   void Awake() {
     if (instance != null && instance != this) {
@@ -38,14 +41,23 @@ public class SceneController : MonoBehaviour {
     return new Scene();
   }
 
+  void unloadNonEssentialScenes() {
+    Scene[] loadedScenes = getSceneList();
+    foreach (Scene scene in loadedScenes) {
+      if (!Array.Exists(essentialScenes, element => element == scene.name)) {
+        SceneManager.UnloadSceneAsync(scene.name);
+      }
+    }
+  }
+
   public void reloadLevel() {
     Scene scene = getLevelScene();
     SceneManager.UnloadSceneAsync(scene.name);
     SceneManager.LoadScene(scene.name, LoadSceneMode.Additive);
-    // SceneManager.LoadScene("Core");
-    // SceneManager.LoadScene("AudioCore", LoadSceneMode.Additive);
-    // SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-    // SceneManager.LoadScene("Game UI", LoadSceneMode.Additive);
-    // SceneManager.LoadScene("ChinaShop", LoadSceneMode.Additive);
+  }
+
+  public void loadMainMenu() {
+    unloadNonEssentialScenes();
+    SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
   }
 }

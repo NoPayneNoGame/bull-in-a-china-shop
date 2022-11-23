@@ -29,5 +29,10 @@ public class EndScreen : MonoBehaviour {
 
   public void buttonRestart() {
     SceneController.instance.reloadLevel();
+    // Respawn bull at spawn point
+  }
+
+  public void buttonHome() {
+    SceneController.instance.loadMainMenu();
   }
 }

@@ -8,23 +8,22 @@ public class MenuTextInput : MonoBehaviour {
   public Vector3 mousePos;
   private MeshRenderer meshRenderer;
 
-  private void Start () {
-      meshRenderer = GetComponent<MeshRenderer>();
-      if (clickEvent == null) {
-        clickEvent = new UnityEvent();
-      }
+  private void Start() {
+    meshRenderer = GetComponent<MeshRenderer>();
+    if (clickEvent == null) {
+      clickEvent = new UnityEvent();
+    }
   }
 
-  private void Update () {
+  private void Update() {
     mousePos = Input.mousePosition;
 
-    // FIXME: This doesn't work >:(
-    if (hoveringText() && Input.GetButtonUp("Fire1")) {
+    if (hoveringText() && Input.GetButtonUp("Brake")) {
       clickEvent.Invoke();
     }
   }
 
-  public  bool hoveringText() {
+  public bool hoveringText() {
     float boundsX = meshRenderer.bounds.extents.x;
     float boundsY = meshRenderer.bounds.extents.y;
     Vector3 topRight = new Vector3(transform.position.x + boundsX, transform.position.y + boundsY, transform.position.z);

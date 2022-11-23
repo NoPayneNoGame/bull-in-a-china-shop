@@ -234,7 +234,6 @@ RectTransform:
   m_Children:
   - {fileID: 1395712303}
   - {fileID: 552452722}
-  - {fileID: 596286678}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -923,12 +922,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596286676}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 90.69647, y: -35.461533, z: -53.467873}
+  m_LocalPosition: {x: 641.1965, y: 236.03847, z: -53.467873}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4349012}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &625479802
 GameObject:
@@ -1068,7 +1067,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 625479805}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 552452725}
+        m_TargetAssemblyTypeName: EndScreen, Assembly-CSharp
+        m_MethodName: buttonHome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &625479809
 MonoBehaviour:
   m_ObjectHideFlags: 0
