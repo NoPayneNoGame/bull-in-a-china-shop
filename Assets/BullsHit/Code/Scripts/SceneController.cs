@@ -65,6 +65,7 @@ public class SceneController : MonoBehaviour {
     Scene scene = getLevelScene();
     SceneManager.UnloadSceneAsync(scene.name);
     SceneManager.LoadScene(scene.name, LoadSceneMode.Additive);
+    movePlayerToSpawn();
   }
 
   public void loadMainMenu() {
@@ -81,10 +82,19 @@ public class SceneController : MonoBehaviour {
     }
   }
 
+  void movePlayerToSpawn() {
+    // TODO: Set velocity to 0, set rotation to...something and instantly move camera
+    // Or just reload game scene?
+    GameObject respawnPoint = GameObject.FindGameObjectWithTag("Respawn");
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    player.transform.position = respawnPoint.transform.position;
+  }
+
   public void loadLevel(int levelIndex) {
     // This is kinda slow. I wonder if we could preload the level scene (which I assume is the slow part but it might not be)
     unloadNonEssentialScenes();
     loadNonLevelScenes();
     SceneManager.LoadScene(levelList[levelIndex], LoadSceneMode.Additive);
+    movePlayerToSpawn();
   }
 }
