@@ -80,7 +80,6 @@ public class SceneController : MonoBehaviour {
     // SceneManager.UnloadSceneAsync(scene.name);
     // SceneManager.LoadScene("Game", LoadSceneMode.Additive);
     // SceneManager.LoadScene(scene.name, LoadSceneMode.Additive);
-    // movePlayerToSpawn();
   }
 
   public void loadMainMenu() {
@@ -98,8 +97,6 @@ public class SceneController : MonoBehaviour {
   }
 
   void movePlayerToSpawn() {
-    // TODO: Set velocity to 0, set rotation to...something and instantly move camera
-    // Or just reload game scene?
     GameObject respawnPoint = GameObject.FindGameObjectWithTag("Respawn");
     GameObject player = GameObject.FindGameObjectWithTag("Player");
     player.transform.position = respawnPoint.transform.position;
@@ -110,6 +107,5 @@ public class SceneController : MonoBehaviour {
     unloadNonEssentialScenes();
     loadNonLevelScenes();
     SceneManager.LoadScene(levelList[levelIndex], LoadSceneMode.Additive);
-    //movePlayerToSpawn();
   }
 }
