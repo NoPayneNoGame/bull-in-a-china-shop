@@ -26,7 +26,11 @@ public class SceneController : MonoBehaviour {
     Scene[] loadedScenes = new Scene[countLoaded];
 
     for (int i = 0; i < countLoaded; i++) {
-      loadedScenes[i] = SceneManager.GetSceneAt(i);
+      Scene scene = SceneManager.GetSceneAt(i);
+      // Need to check if scene is loaded because of async unloading
+      if (scene.isLoaded) {
+        loadedScenes[i] = SceneManager.GetSceneAt(i);
+      }
     }
     return loadedScenes;
   }
@@ -36,7 +40,10 @@ public class SceneController : MonoBehaviour {
     string[] loadedScenes = new string[countLoaded];
 
     for (int i = 0; i < countLoaded; i++) {
-      loadedScenes[i] = SceneManager.GetSceneAt(i).name;
+      Scene scene = SceneManager.GetSceneAt(i);
+      if (scene.isLoaded) {
+        loadedScenes[i] = scene.name;
+      }
     }
     return loadedScenes;
   }
@@ -52,6 +59,10 @@ public class SceneController : MonoBehaviour {
     return new Scene();
   }
 
+  int getLevelSceneIndex(Scene scene) {
+    return Array.IndexOf(levelList, scene.name);
+  }
+
   void unloadNonEssentialScenes() {
     Scene[] loadedScenes = getLoadedSceneList();
     foreach (Scene scene in loadedScenes) {
@@ -63,9 +74,13 @@ public class SceneController : MonoBehaviour {
 
   public void reloadLevel() {
     Scene scene = getLevelScene();
-    SceneManager.UnloadSceneAsync(scene.name);
-    SceneManager.LoadScene(scene.name, LoadSceneMode.Additive);
-    movePlayerToSpawn();
+    int sceneIndex = getLevelSceneIndex(scene);
+    loadLevel(sceneIndex);
+    // SceneManager.UnloadSceneAsync("Game");
+    // SceneManager.UnloadSceneAsync(scene.name);
+    // SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+    // SceneManager.LoadScene(scene.name, LoadSceneMode.Additive);
+    // movePlayerToSpawn();
   }
 
   public void loadMainMenu() {
@@ -95,6 +110,6 @@ public class SceneController : MonoBehaviour {
     unloadNonEssentialScenes();
     loadNonLevelScenes();
     SceneManager.LoadScene(levelList[levelIndex], LoadSceneMode.Additive);
-    movePlayerToSpawn();
+    //movePlayerToSpawn();
   }
 }
