@@ -10,6 +10,8 @@ public class EndScreen : MonoBehaviour {
   [SerializeField] private RawImage endScreenTrophy;
   [SerializeField] private TMP_Text endScoreText;
   [SerializeField] private TMP_Text endLevelText;
+  [SerializeField] private GameObject winParticles;
+  [SerializeField] private GameObject loseParticles;
   private Score scoreScript;
   private Timer timerScript;
 
@@ -19,6 +21,11 @@ public class EndScreen : MonoBehaviour {
     timerScript = FindObjectOfType<Timer>();
     endScreenTrophy.texture = scoreScript.getTrophyTexture();
     endScoreText.text = "Score: $" + scoreScript.getScore();
+    if (scoreScript.getTrophy() == Score.Trophy.none) {
+      loseParticles.SetActive(true);
+    } else {
+      winParticles.SetActive(true);
+    }
     timerScript.pauseTimer();
     gameObject.SetActive(true);
   }
