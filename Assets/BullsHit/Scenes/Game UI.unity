@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9d0c0f19781844694f48812de87775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 10
+  timeRemaining: 60
   timerText: {fileID: 1891673311}
   notifyText: {fileID: 190460557}
   endScreen: {fileID: 552452721}
