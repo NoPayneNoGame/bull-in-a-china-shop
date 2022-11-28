@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour {
 
-  
-  void Start() {
-    
+  private AudioSource music;
+
+  void Awake() {
+    music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
   }
 
-  void Update() {
-    
+  public void updateMusicVolume(float volume) {
+    music.volume = volume;
   }
 }

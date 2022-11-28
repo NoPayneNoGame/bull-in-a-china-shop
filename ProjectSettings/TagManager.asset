@@ -13,6 +13,7 @@ TagManager:
   - Floor
   - Score
   - SceneController
+  - Music
   layers:
   - Default
   - TransparentFX
