@@ -13,4 +13,9 @@ public class MusicController : MonoBehaviour {
   public void updateMusicVolume(float volume) {
     music.volume = volume;
   }
+
+  public void toggleMusic(bool shouldMusicPlay) {
+    // This can probably bug out and display opposite somehow but who cares
+    music.enabled = !music.enabled;
+  }
 }
