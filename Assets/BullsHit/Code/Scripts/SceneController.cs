@@ -117,6 +117,4 @@ public class SceneController : MonoBehaviour {
     GameObject HUD = ui.transform.Find("HUD").gameObject;
     HUD.SetActive(true);
   }
-
-
 }
