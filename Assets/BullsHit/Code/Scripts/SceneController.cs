@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour {
 
   public static SceneController instance { get; private set; }
-  private string[] nonLevelScenes = new string[] { "Core", "AudioCore", "Game", "Game UI" };
-  private string[] essentialScenes = new string[] { "Core", "AudioCore" };
+  private string[] nonLevelScenes = new string[] { "Core", "AudioCore", "Game" };
+  private string[] essentialScenes = new string[] { "Core", "AudioCore", "Game UI" };
   private string[] levelList = new string[] { "ChinaShopElise" };
 
   // TODO: Active scene is always core for some reason
@@ -19,6 +19,7 @@ public class SceneController : MonoBehaviour {
     } else {
       instance = this;
     }
+
   }
 
   Scene[] getLoadedSceneList() {
@@ -107,5 +108,15 @@ public class SceneController : MonoBehaviour {
     unloadNonEssentialScenes();
     loadNonLevelScenes();
     SceneManager.LoadScene(levelList[levelIndex], LoadSceneMode.Additive);
+    enableHud();
+    // TODO: Load scoring system if it isn't working (it probably won't be)
   }
+
+  void enableHud() {
+    GameObject ui = GameObject.FindGameObjectWithTag("UI");
+    GameObject HUD = ui.transform.Find("HUD").gameObject;
+    HUD.SetActive(true);
+  }
+
+
 }

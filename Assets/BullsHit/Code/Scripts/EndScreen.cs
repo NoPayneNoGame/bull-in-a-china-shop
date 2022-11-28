@@ -41,5 +41,10 @@ public class EndScreen : MonoBehaviour {
 
   public void buttonHome() {
     SceneController.instance.loadMainMenu();
+    disableHud();
+  }
+
+  void disableHud() {
+    GameObject.FindGameObjectWithTag("HUD").SetActive(false);
   }
 }

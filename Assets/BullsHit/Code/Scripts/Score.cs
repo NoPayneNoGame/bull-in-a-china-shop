@@ -39,6 +39,10 @@ public class Score : MonoBehaviour {
     trophyRight = canvas.transform.Find("HUD").Find("TrophyRight").GetComponent<RawImage>();
     endScreenScript = canvas.transform.Find("EndGame").GetComponent<EndScreen>();
     cam = Camera.main;
+    loadScoring();
+  }
+
+  public void loadScoring() {
     maxScore = getMaxScore();
     updateTrophyImages();
     repositionTrophies();
@@ -47,6 +51,7 @@ public class Score : MonoBehaviour {
   int getMaxScore() {
     int total = 0;
     GameObject[] destructibles = GameObject.FindGameObjectsWithTag("Destructible");
+    if (destructibles.Length == 0) return 1; // Terrible hack to stop bugs on other scenes
     foreach (GameObject destructible in destructibles) {
       // Probably want error checking here
       total += destructible.GetComponent<ScoreValue>().value;
