@@ -29,7 +29,7 @@ by [Architextures Software Limited](https://architextures.org/) are licensed und
 
 by [Santiago Bedoya](https://www.cgtrader.com/sb3dart) is licensed under the [CGTrader Royalty Free License](https://www.cgtrader.com/pages/terms-and-conditions#general-terms-of-licensing)
 
-### [White Electronic Cash Register Machine Free low-poly 3D model](https://www.cgtrader.com/free-3d-models/electronics/other/white-electronic-cash-register-machine) 
+### [White Electronic Cash Register Machine Free low-poly 3D model](https://www.cgtrader.com/free-3d-models/electronics/other/white-electronic-cash-register-machine)
 
 by [mechano-file](https://www.cgtrader.com/mechano-file) is licensed under the [CGTrader Royalty Free License](https://www.cgtrader.com/pages/terms-and-conditions#general-terms-of-licensing)
 
