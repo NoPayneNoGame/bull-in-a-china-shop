@@ -5,12 +5,13 @@ using TMPro;
 public class Score : MonoBehaviour {
   // I like the idea of centralizing the score text on screen and increasing text size as you do more damage
 
+  public Camera cam;
+
   private TMP_Text scoreText;
   private RawImage trophyLeft;
   private RawImage trophyRight;
   public Texture[] trophyTextures;
   [SerializeField] private GameObject floatingTextPrefab;
-  private Camera cam;
   private Canvas canvas;
   private EndScreen endScreenScript;
   private RectTransform canvasRect;
@@ -38,8 +39,6 @@ public class Score : MonoBehaviour {
     trophyLeft = canvas.transform.Find("HUD").Find("TrophyLeft").GetComponent<RawImage>();
     trophyRight = canvas.transform.Find("HUD").Find("TrophyRight").GetComponent<RawImage>();
     endScreenScript = canvas.transform.Find("EndGame").GetComponent<EndScreen>();
-    cam = Camera.main;
-    loadScoring();
   }
 
   public void loadScoring() {
@@ -53,9 +52,11 @@ public class Score : MonoBehaviour {
     GameObject[] destructibles = GameObject.FindGameObjectsWithTag("Destructible");
     if (destructibles.Length == 0) return 1; // Terrible hack to stop bugs on other scenes
     foreach (GameObject destructible in destructibles) {
-      // Probably want error checking here
-      total += destructible.GetComponent<ScoreValue>().value;
+      ScoreValue sv = destructible.GetComponent<ScoreValue>();
+      if (sv == null) continue;
+      total += sv.value;
     }
+    Debug.Log("Max Score: " + total);
     return total;
   }
 
