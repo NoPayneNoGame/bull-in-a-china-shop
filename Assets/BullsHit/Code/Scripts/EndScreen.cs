@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,17 +13,25 @@ public class EndScreen : MonoBehaviour {
   private Score scoreScript;
   private Timer timerScript;
 
+  private PlayerMovement playerMovement;
 
   public void levelOver() {
+    playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+    playerMovement.enabled = false;
+
     scoreScript = GameObject.FindGameObjectsWithTag("Score")[0].GetComponent<Score>();
     timerScript = FindObjectOfType<Timer>();
+
     endScreenTrophy.texture = scoreScript.getTrophyTexture();
     endScoreText.text = "Score: $" + scoreScript.getScore();
+
     if (scoreScript.getTrophy() == Score.Trophy.none) {
       loseParticles.SetActive(true);
     } else {
       winParticles.SetActive(true);
     }
+
+    disableHud();
     timerScript.pauseTimer();
     gameObject.SetActive(true);
   }
@@ -35,14 +41,21 @@ public class EndScreen : MonoBehaviour {
   }
 
   public void buttonRestart() {
+    disableEndGame();
+    reset();
     SceneController.instance.reloadLevel();
-    // Respawn bull at spawn point
   }
 
   public void buttonHome() {
-    SceneController.instance.loadMainMenu();
-    disableHud();
     disableEndGame();
+    reset();
+    SceneController.instance.loadMainMenu();
+  }
+
+  void reset() {
+    playerMovement.enabled = true;
+    scoreScript.resetScore();
+    timerScript.resetTimer();
   }
 
   void disableHud() {

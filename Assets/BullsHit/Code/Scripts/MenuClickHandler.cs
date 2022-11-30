@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// TODO: This class :)
 public class MenuClickHandler : MonoBehaviour {
   private GameObject options;
 
@@ -9,10 +8,22 @@ public class MenuClickHandler : MonoBehaviour {
     options = ui.transform.Find("Options").gameObject;
   }
 
+  void startGame() {
+    SceneController.instance.loadLevel(0);
+  }
+
+  void exitGame() {
+    #if UNITY_EDITOR
+    UnityEditor.EditorApplication.isPlaying = false;
+    #endif
+
+    Application.Quit();
+  }
+
   public void Play() {
     if (menuOpen()) return;
     Debug.Log("Play");
-    SceneController.instance.loadLevel(0);
+    startGame();
   }
 
   public void Credits() {
@@ -28,12 +39,7 @@ public class MenuClickHandler : MonoBehaviour {
 
   public void Exit() {
     if (menuOpen()) return;
-
-    #if UNITY_EDITOR
-    UnityEditor.EditorApplication.isPlaying = false;
-    #endif
-
-    Application.Quit();
+    exitGame();
   }
 
   bool menuOpen() => options.activeSelf;

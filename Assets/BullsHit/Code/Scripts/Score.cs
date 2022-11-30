@@ -22,6 +22,10 @@ public class Score : MonoBehaviour {
   private float trophyOffset = 20;
   private float scoreWidth;
 
+  private int startingScore;
+  private float startingFontSize;
+  private float startingGreen;
+
   public enum Trophy {
     bronze,
     silver,
@@ -39,7 +43,19 @@ public class Score : MonoBehaviour {
     trophyLeft = canvas.transform.Find("HUD").Find("TrophyLeft").GetComponent<RawImage>();
     trophyRight = canvas.transform.Find("HUD").Find("TrophyRight").GetComponent<RawImage>();
     endScreenScript = canvas.transform.Find("EndGame").GetComponent<EndScreen>();
+
+    startingScore = score;
+    startingGreen = green;
+    startingFontSize = scoreText.fontSize;
   }
+
+  public void resetScore() {
+    score = startingScore;
+    green = startingGreen;
+    scoreText.fontSize = startingFontSize;
+    scoreText.color = new Color(1f, green, 0f);
+  }
+
 
   public void loadScoring() {
     maxScore = getMaxScore();
@@ -98,7 +114,7 @@ public class Score : MonoBehaviour {
   void onTrophyChange() {
     increaseFontIntensity();
     repositionTrophies();
-    if (getTrophy() == Trophy.gold) {
+    if (score == maxScore) {
       // End game
       endScreenScript.levelOver();
     }
@@ -122,7 +138,8 @@ public class Score : MonoBehaviour {
 
   public Trophy getTrophy() {
     // Not sure how we decide this. Just 1/3 of max, 2/3 max, 100%? (95%? so you can miss a couple and not be punished)
-    float[] trophyScores = new float[3] { maxScore / 3, maxScore / 3 * 2, maxScore };
+    // float[] trophyScores = new float[3] { maxScore / 3, maxScore / 3 * 2, maxScore };
+    float[] trophyScores = new float[3] { maxScore * 0.2f, maxScore * 0.5f, maxScore  * 0.8f };
     if (score < trophyScores[0]) {
       return Trophy.none;
     }

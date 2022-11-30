@@ -53,9 +53,9 @@ public class PlayerMovement : MonoBehaviour {
   private float currentSpeed;
   private bool canMove = true;
   private bool canJump = true;
+  private bool canDash = true;
   private bool shouldJump = false;
   private bool shouldDash = false;
-  private bool canDash = true;
   private bool shouldBrake = false;
 
   private CinemachineTransposer transposer;
@@ -149,9 +149,9 @@ public class PlayerMovement : MonoBehaviour {
         canDash = false;
         // TODO: Don't love the look of the light. Might want to try make the model tinted instead or use an animation
         dashLight.SetActive(true);
-        Explode();
         Invoke("endDash", dashDuration);
         Invoke("enableDash", dashCooldown);
+        Explode();
       }
 
       if (shouldBrake) {
@@ -163,7 +163,31 @@ public class PlayerMovement : MonoBehaviour {
     }
   }
 
+  void Respawn() {
+      horizontal = 0;
+      vertical = 0;
+      shouldJump = false;
+      shouldBrake = false;
+      shouldDash = false;
+      canDash = true;
+      canJump = true;
+      canMove = true;
+      animator.SetBool("Running", false);
+      animator.SetBool("Braking", false);
+      animator.SetBool("Dashing", false);
+      animator.SetBool("Jumping", false);
+      animator.SetBool("WallCollision", false);
+
+      SceneController.instance.movePlayerToSpawn();
+  }
+
   void Update() {
+    bool respawn = Input.GetButton("Respawn");
+    if (respawn) {
+      Respawn();
+      return;
+    }
+
     horizontal = Input.GetAxisRaw("Horizontal");
     vertical = Input.GetAxisRaw("Vertical");
     shouldJump = Input.GetButton("Jump");
@@ -185,12 +209,27 @@ public class PlayerMovement : MonoBehaviour {
     }
   }
 
+  void PreExplodeFracture(int numColliders) {
+    for (int i = 0; i < numColliders; i++) {
+      Collider hit = hitColliders[i];
+      Fracture fracture = hit.GetComponent<Fracture>();
+      if (fracture != null) {
+        fracture.CauseFracture();
+      }
+    }
+  }
+
   void Explode() {
     Vector3 expPoint1 = transform.position + explosionOffset;
     Vector3 expPoint2 = expPoint1 + (transform.forward * explosionDistance) + (Vector3.up * explosionDistanceUp);
     float radius = explosionRadius;
 
     int numColliders = Physics.OverlapCapsuleNonAlloc(expPoint1, expPoint2, radius, hitColliders);
+    PreExplodeFracture(numColliders);
+    numColliders = Physics.OverlapSphereNonAlloc(expPoint1, radius, hitColliders);
+    PreExplodeFracture(numColliders);
+
+    numColliders = Physics.OverlapCapsuleNonAlloc(expPoint1, expPoint2, radius, hitColliders);
     for (int i = 0; i < numColliders; i++)
     {
       Collider hit = hitColliders[i];
