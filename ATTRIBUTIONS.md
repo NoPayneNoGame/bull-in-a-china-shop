@@ -45,7 +45,7 @@ by [BCG](https://www.cgtrader.com/bcg) is licensed under the [CGTrader Royalty F
 
 by [Shapespark sp. z o.o.](https://www.cgtrader.com/shapespark) is licensed under the [CGTrader Royalty Free License](https://www.cgtrader.com/pages/terms-and-conditions#general-terms-of-licensing)
 
-### [Tiles Moroccan 001](https://3dtextures.me/2020/09/29/tiles-moroccan-001/), [Tiles Chaine Homme 001](https://3dtextures.me/2020/02/28/tiles-chaine-homme-001/), [Tiles Stars and Crosses 001](https://3dtextures.me/2019/10/17/tiles-stars-and-crosses-001/),[Iron Bars 001](https://3dtextures.me/2020/04/08/iron-bars-001/), [Metal Pattern 001](https://3dtextures.me/2019/05/14/metal-pattern-001-2/),[Glass Pattern 001](https://3dtextures.me/2019/04/15/glass-pattern-001/), [Engraved Metal 003](https://3dtextures.me/2018/06/19/engraved-metal-003/), [Stone Column 002](https://docs.google.com/document/d/17II55hb74EaQg7oblRQd3n1VtHD7fWvu-euP9yZVSmk/edit#heading=h.3q9qq7172yy6)
+### [Tiles Moroccan 001](https://3dtextures.me/2020/09/29/tiles-moroccan-001/), [Tiles Chaine Homme 001](https://3dtextures.me/2020/02/28/tiles-chaine-homme-001/), [Tiles Stars and Crosses 001](https://3dtextures.me/2019/10/17/tiles-stars-and-crosses-001/),[Iron Bars 001](https://3dtextures.me/2020/04/08/iron-bars-001/), [Metal Pattern 001](https://3dtextures.me/2019/05/14/metal-pattern-001-2/),[Glass Pattern 001](https://3dtextures.me/2019/04/15/glass-pattern-001/), [Engraved Metal 003](https://3dtextures.me/2018/06/19/engraved-metal-003/), [Stone Column 002](https://docs.google.com/document/d/17II55hb74EaQg7oblRQd3n1VtHD7fWvu-euP9yZVSmk/edit#heading=h.3q9qq7172yy6), [Metal Corrugated 013](https://3dtextures.me/2021/05/19/metal-corrugated-013/), [Asphalt 004](https://3dtextures.me/2018/03/30/asphalt-004/)
 
 by [3Dtextures.me](https://3dtextures.me/about/) are licensed under [CC0](https://3dtextures.me/about/)
 
@@ -76,6 +76,22 @@ by [craigsmith](https://freesound.org/people/craigsmith/) is licensed under [CC0
 ### [Rock Smash](https://freesound.org/people/NeoSpica/sounds/512243/) 
 
 by [NeoSpica](https://freesound.org/people/NeoSpica/) is licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+### [A tea set Free low-poly 3D model](https://www.cgtrader.com/free-3d-models/interior/living-room/a-tea-set-6539b771-0d5e-48c6-a473-e35aebc495a9)
+
+by [NeykoKun](https://www.cgtrader.com/neykokun) is licensed under the [CGTrader Royalty Free License](https://www.cgtrader.com/pages/terms-and-conditions#general-terms-of-licensing)
+
+### [VASE PBR MODEL Free low-poly 3D model](https://www.cgtrader.com/free-3d-models/interior/house-interior/vase-pbr-model-e0323ce3-ee05-4260-afb0-552cf9fd0fe4)
+
+by [Shahid Abdullah](https://www.cgtrader.com/animatedheaven) is licensed under the [CGTrader Royalty Free License](https://www.cgtrader.com/pages/terms-and-conditions#general-terms-of-licensing)
+
+### [Achievement, award, competition icon](https://www.iconfinder.com/icons/6843056/achievement_award_competition_reward_success_trophy_winner_icon), [Home Icon](https://www.iconfinder.com/icons/8541853/home_icon), [History, time icon](https://www.iconfinder.com/icons/8541835/history_time_icon), [Fast, backward icon](https://www.iconfinder.com/icons/8541948/fast_backward_icon)
+
+by [Font Awesome](https://www.iconfinder.com/icons/8541948/fast_backward_icon) is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+### [Comicy free font for commercial use](https://www.fontspace.com/comicy-font-f82963)
+
+by [Khurasan](https://www.fontspace.com/khurasan) is licensed as [Freeware](https://www.fontspace.com/help#license-3)
 
 ## The following code is licensed under the [MIT license](https://opensource.org/licenses/MIT)
 
