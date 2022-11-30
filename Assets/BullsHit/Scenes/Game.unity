@@ -502,8 +502,52 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 557508426}
     - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: upDog
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionEnd.x
+      value: -7.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionEnd.y
+      value: 3.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionEnd.z
+      value: 2.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionPower
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionStart
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionRadius
+      value: 3.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionDistance
+      value: 6.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionOffset.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionOffset.y
+      value: 2.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
       propertyPath: minCameraDistance
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005300927630650624, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
+      propertyPath: explosionDistanceUp
+      value: 2.12
       objectReference: {fileID: 0}
     - target: {fileID: 1005300927630650627, guid: f70608135c463c64eacbba9633dfb37a, type: 3}
       propertyPath: m_Mass

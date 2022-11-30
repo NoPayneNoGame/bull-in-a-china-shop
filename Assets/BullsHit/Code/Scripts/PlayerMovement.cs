@@ -29,6 +29,16 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] private float dashDuration = 0.2f;
 
 
+  [SerializeField] private Vector3 explosionOffset = Vector3.zero;
+  [SerializeField] private float explosionDistance = 5;
+  [SerializeField] private float explosionDistanceUp = 5;
+  [SerializeField] private float explosionPower = 10;
+  [SerializeField] private float explosionRadius = 5;
+  [SerializeField] private float upDog = 1;
+
+  private int maxColliders = 2000;
+  private Collider[] hitColliders;
+
   [Header("Camera Things")]
   public CinemachineVirtualCamera vcam;
   public float minCameraDistance = 18;
@@ -105,6 +115,8 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   void Start() {
+    hitColliders = new Collider[maxColliders];
+
     transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
     if (animator == null) {
       animator = GetComponentInChildren<Animator>();
@@ -137,6 +149,7 @@ public class PlayerMovement : MonoBehaviour {
         canDash = false;
         // TODO: Don't love the look of the light. Might want to try make the model tinted instead or use an animation
         dashLight.SetActive(true);
+        Explode();
         Invoke("endDash", dashDuration);
         Invoke("enableDash", dashCooldown);
       }
@@ -170,5 +183,45 @@ public class PlayerMovement : MonoBehaviour {
     } else {
       transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, minCameraDistance, zoomInSpeed * Time.deltaTime);
     }
+  }
+
+  void Explode() {
+    Vector3 expPoint1 = transform.position + explosionOffset;
+    Vector3 expPoint2 = expPoint1 + (transform.forward * explosionDistance) + (Vector3.up * explosionDistanceUp);
+    float radius = explosionRadius;
+
+    int numColliders = Physics.OverlapCapsuleNonAlloc(expPoint1, expPoint2, radius, hitColliders);
+    for (int i = 0; i < numColliders; i++)
+    {
+      Collider hit = hitColliders[i];
+      Rigidbody rb = hit.GetComponent<Rigidbody>();
+      if (rb != null && hit.tag != "Player") {
+        Vector3 explosionPosition = hit.transform.position;
+        float distanceFrom = Vector3.Distance(hit.transform.position, transform.position);
+        rb.AddExplosionForce(explosionPower * (1/distanceFrom), explosionPosition, explosionRadius, upDog, ForceMode.Impulse);
+      }
+    }
+
+    numColliders = Physics.OverlapSphereNonAlloc(expPoint1, radius, hitColliders);
+    for (int i = 0; i < numColliders; i++)
+    {
+      Collider hit = hitColliders[i];
+      Rigidbody rb = hit.GetComponent<Rigidbody>();
+      if (rb != null && hit.tag != "Player") {
+        rb.AddExplosionForce(explosionPower, expPoint1, explosionRadius * 2f, upDog, ForceMode.Impulse);
+      }
+    }
+  }
+
+  private void OnDrawGizmos () {
+    Gizmos.color = Color.red;
+    Vector3 expPoint1 = transform.position + explosionOffset;
+    Vector3 expPoint2 = expPoint1 + (transform.forward * explosionDistance) + (Vector3.up * explosionDistanceUp);
+
+    Gizmos.DrawWireSphere(expPoint1, explosionRadius);
+    Gizmos.DrawWireSphere(expPoint2, explosionRadius);
+
+    Gizmos.color = Color.blue;
+    Gizmos.DrawWireSphere(expPoint1, explosionRadius * 2f);
   }
 }

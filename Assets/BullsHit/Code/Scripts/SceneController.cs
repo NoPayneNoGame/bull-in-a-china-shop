@@ -105,21 +105,24 @@ public class SceneController : MonoBehaviour {
   }
 
   public void loadLevel(int levelIndex) {
-    SceneManager.sceneLoaded += setupScoring;
+    SceneManager.sceneLoaded += setupLevel;
 
     // This is kinda slow. I wonder if we could preload the level scene (which I assume is the slow part but it might not be)
     unloadNonEssentialScenes();
     loadNonLevelScenes();
     SceneManager.LoadScene(levelList[levelIndex], LoadSceneMode.Additive);
     enableHud();
-    // TODO: Load scoring system if it isn't working (it probably won't be)
   }
 
-  void setupScoring(Scene scene, LoadSceneMode lsm) {
+  void setupLevel(Scene scene, LoadSceneMode lsm) {
     if (!levelList.Contains(scene.name)) return;
-
     Debug.Log(scene.name + " has loaded.");
 
+    setupScoring();
+    startMusic();
+  }
+
+  void setupScoring() {
     GameObject scoreGo = GameObject.Find("ScoreHandler");
     if (scoreGo == null) {
       Debug.LogError("Cannot find ScoreHandler");
@@ -146,5 +149,13 @@ public class SceneController : MonoBehaviour {
     GameObject ui = GameObject.FindGameObjectWithTag("UI");
     GameObject HUD = ui.transform.Find("HUD").gameObject;
     HUD.SetActive(true);
+  }
+
+  void startMusic() {
+    AudioSource music = GameObject.Find("Music").GetComponent<AudioSource>();
+    if (music.isPlaying) {
+      music.Stop();
+    }
+    music.Play();
   }
 }
