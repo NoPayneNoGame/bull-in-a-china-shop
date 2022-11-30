@@ -50,6 +50,7 @@ public class EndScreen : MonoBehaviour {
   }
 
   void disableEndGame() {
-    GameObject.Find("EndGame").SetActive(false);
+    Debug.Log(GameObject.FindGameObjectWithTag("EndGame"));
+    GameObject.FindGameObjectWithTag("EndGame").SetActive(false);
   }
 }

@@ -18,6 +18,8 @@ public class Timer : MonoBehaviour {
 
   private bool timerPaused = false;
 
+  private bool shouldLevelEnd = true;
+
   void displayTime() {
     float time = timeRemaining + 1;
     float minutes = Mathf.FloorToInt(time / 60);
@@ -73,7 +75,11 @@ public class Timer : MonoBehaviour {
       // notifyText.text = "Wow you suck!";
       // animateTextSize(notifyText, 102, 97);
       // Activate the end screen
-      endScreenScript.levelOver();
+      if (shouldLevelEnd) {
+        // TODO: This code is horrendous I'm so ashamed
+        endScreenScript.levelOver();
+        shouldLevelEnd = false;
+      }
     }
   }
 }
