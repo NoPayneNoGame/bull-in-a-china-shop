@@ -18,7 +18,7 @@ public class MenuTextInput : MonoBehaviour {
   private void Update() {
     mousePos = Input.mousePosition;
 
-    if (hoveringText() && Input.GetButtonUp("Brake")) {
+    if (hoveringText() && Input.GetButtonUp("Click")) {
       clickEvent.Invoke();
     }
   }

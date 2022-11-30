@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -13,12 +11,24 @@ public class Timer : MonoBehaviour {
   private int lastSeconds;
   private bool textSizeIncreasing = true;
 
+  public float startingTime;
+  private float startingFontSize;
+  private float startingGreen;
+
   [SerializeField] private GameObject endScreen;
   private EndScreen endScreenScript;
 
   private bool timerPaused = false;
-
   private bool shouldLevelEnd = true;
+
+  public void resetTimer() {
+    timeRemaining = startingTime;
+    green = startingGreen;
+    timerText.fontSize = startingFontSize;
+    timerText.color = new Color(1f, green, 0f);
+    timerPaused = false;
+    shouldLevelEnd = true;
+  }
 
   void displayTime() {
     float time = timeRemaining + 1;
@@ -62,6 +72,10 @@ public class Timer : MonoBehaviour {
   }
 
   void Start() {
+    startingTime = timeRemaining;
+    startingFontSize = timerText.fontSize;
+    startingGreen = green;
+
     endScreenScript = endScreen.GetComponent<EndScreen>();
   }
 

@@ -6,36 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/BullsHit/Scenes/Core.unity
+    guid: efa9b93996ce5c542a9435ae3b876dde
+  - enabled: 1
     path: Assets/BullsHit/Scenes/MainMenu.unity
     guid: d548b923d0bb2704aab88389a0ec2517
   - enabled: 1
     path: Assets/BullsHit/Scenes/AudioCore.unity
     guid: d0a53e391bbf31c4e8c05ef4904ab882
   - enabled: 1
-    path: Assets/BullsHit/Scenes/bullsHit_christina.unity
-    guid: efd7ef1efb723484084f90d51eb956bb
-  - enabled: 1
-    path: Assets/BullsHit/Scenes/ChinaShop.unity
-    guid: acd4653b711811d4182110632f0dcb8f
-  - enabled: 1
-    path: Assets/BullsHit/Scenes/ChinaShopElise.unity
-    guid: ad2786c3321ea3e4487cb66e01f85037
-  - enabled: 1
-    path: Assets/BullsHit/Scenes/Core.unity
-    guid: efa9b93996ce5c542a9435ae3b876dde
-  - enabled: 1
-    path: Assets/BullsHit/Scenes/first day.unity
-    guid: 90f1f27eef2e0264294aa0d9a4e0e70c
+    path: Assets/BullsHit/Scenes/Game.unity
+    guid: 2483135089bc84b44b59e62edae06b13
   - enabled: 1
     path: Assets/BullsHit/Scenes/Game UI.unity
     guid: 032db760412e63e41988f621ba823372
   - enabled: 1
-    path: Assets/BullsHit/Scenes/Game.unity
-    guid: 2483135089bc84b44b59e62edae06b13
-  - enabled: 1
-    path: Assets/BullsHit/Scenes/pottery.unity
-    guid: 70a527b77f2c2ce46ab443778d71c9f9
-  - enabled: 1
-    path: Assets/BullsHit/Scenes/Test.unity
-    guid: 78fa5354f7128ac48a301a8c191588db
+    path: Assets/BullsHit/Scenes/ChinaShopElise.unity
+    guid: ad2786c3321ea3e4487cb66e01f85037
   m_configObjects: {}

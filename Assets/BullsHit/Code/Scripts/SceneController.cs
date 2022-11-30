@@ -20,6 +20,16 @@ public class SceneController : MonoBehaviour {
     }
   }
 
+  void Start () {
+    string[] loadedScenes = getLoadedSceneListNames();
+    foreach (string scene in essentialScenes) {
+      if (!Array.Exists(loadedScenes, element => element == scene)) {
+        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+      }
+    }
+    SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+  }
+
   Scene[] getLoadedSceneList() {
     int countLoaded = SceneManager.sceneCount;
     Scene[] loadedScenes = new Scene[countLoaded];
@@ -75,10 +85,6 @@ public class SceneController : MonoBehaviour {
     Scene scene = getLevelScene();
     int sceneIndex = getLevelSceneIndex(scene);
     loadLevel(sceneIndex);
-    // SceneManager.UnloadSceneAsync("Game");
-    // SceneManager.UnloadSceneAsync(scene.name);
-    // SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-    // SceneManager.LoadScene(scene.name, LoadSceneMode.Additive);
   }
 
   public void loadMainMenu() {
@@ -86,7 +92,6 @@ public class SceneController : MonoBehaviour {
     SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
     SceneManager.UnloadSceneAsync("Game UI");
     SceneManager.LoadScene("Game UI", LoadSceneMode.Additive);
-
   }
 
   void loadNonLevelScenes() {
@@ -98,10 +103,12 @@ public class SceneController : MonoBehaviour {
     }
   }
 
-  void movePlayerToSpawn() {
+  public void movePlayerToSpawn() {
     GameObject respawnPoint = GameObject.FindGameObjectWithTag("Respawn");
     GameObject player = GameObject.FindGameObjectWithTag("Player");
+
     player.transform.position = respawnPoint.transform.position;
+    player.transform.rotation = respawnPoint.transform.rotation;
   }
 
   public void loadLevel(int levelIndex) {
@@ -120,6 +127,7 @@ public class SceneController : MonoBehaviour {
 
     setupScoring();
     startMusic();
+    movePlayerToSpawn();
   }
 
   void setupScoring() {
