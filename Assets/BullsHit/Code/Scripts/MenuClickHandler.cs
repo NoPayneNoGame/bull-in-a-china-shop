@@ -4,9 +4,9 @@ using UnityEngine;
 public class MenuClickHandler : MonoBehaviour {
   private GameObject options;
 
-  void Awake() {
-    // GameObject ui = GameObject.FindGameObjectWithTag("UI");
-    // options = ui.transform.Find("Options").gameObject;
+  void Start() {
+    GameObject ui = GameObject.FindGameObjectWithTag("UI");
+    options = ui.transform.Find("Options").gameObject;
   }
 
   public void Play() {
@@ -31,8 +31,5 @@ public class MenuClickHandler : MonoBehaviour {
     Debug.Log("Exit");
   }
 
-  // TODO: Fix this
-  bool menuOpen() {
-    return false;
-  }//options.activeSelf;
+  bool menuOpen() => options.activeSelf;
 }
