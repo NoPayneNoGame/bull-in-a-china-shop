@@ -15,6 +15,7 @@ TagManager:
   - SceneController
   - Music
   - UI
+  - EndGame
   layers:
   - Default
   - TransparentFX

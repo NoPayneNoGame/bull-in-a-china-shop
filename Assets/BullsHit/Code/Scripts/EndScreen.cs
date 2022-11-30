@@ -42,9 +42,15 @@ public class EndScreen : MonoBehaviour {
   public void buttonHome() {
     SceneController.instance.loadMainMenu();
     disableHud();
+    disableEndGame();
   }
 
   void disableHud() {
     GameObject.FindGameObjectWithTag("HUD").SetActive(false);
+  }
+
+  void disableEndGame() {
+    Debug.Log(GameObject.FindGameObjectWithTag("EndGame"));
+    GameObject.FindGameObjectWithTag("EndGame").SetActive(false);
   }
 }

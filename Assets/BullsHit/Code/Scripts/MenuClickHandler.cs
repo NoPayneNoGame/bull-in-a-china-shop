@@ -4,7 +4,7 @@ using UnityEngine;
 public class MenuClickHandler : MonoBehaviour {
   private GameObject options;
 
-  void Awake() {
+  void Start() {
     GameObject ui = GameObject.FindGameObjectWithTag("UI");
     options = ui.transform.Find("Options").gameObject;
   }
