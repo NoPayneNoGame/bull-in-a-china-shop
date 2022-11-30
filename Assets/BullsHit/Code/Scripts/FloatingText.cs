@@ -69,6 +69,6 @@ public class FloatingText : MonoBehaviour {
   void Update() {
     if (floatingTextObject == null) return;
     if (floatingTextColor.a <= 0) Destroy(floatingTextObject);
-    animateText();
+    if (this.cam != null) animateText();
   }
 }

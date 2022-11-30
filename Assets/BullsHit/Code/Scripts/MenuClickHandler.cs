@@ -5,8 +5,8 @@ public class MenuClickHandler : MonoBehaviour {
   private GameObject options;
 
   void Awake() {
-    GameObject ui = GameObject.FindGameObjectWithTag("UI");
-    options = ui.transform.Find("Options").gameObject;
+    // GameObject ui = GameObject.FindGameObjectWithTag("UI");
+    // options = ui.transform.Find("Options").gameObject;
   }
 
   public void Play() {
@@ -31,5 +31,8 @@ public class MenuClickHandler : MonoBehaviour {
     Debug.Log("Exit");
   }
 
-  bool menuOpen() => options.activeSelf;
+  // TODO: Fix this
+  bool menuOpen() {
+    return false;
+  }//options.activeSelf;
 }

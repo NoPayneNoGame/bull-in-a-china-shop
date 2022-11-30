@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9d0c0f19781844694f48812de87775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 60
+  timeRemaining: 5
   timerText: {fileID: 1891673311}
   notifyText: {fileID: 190460557}
   endScreen: {fileID: 552452721}
@@ -6413,6 +6413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6606f8a470d012d4cb434e07a561b31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   trophyTextures:
   - {fileID: 2800000, guid: ef693292cb62d0840ad4c6cdba86e95b, type: 3}
   - {fileID: 2800000, guid: d8fdd9fff96cb934fad5617de3453422, type: 3}
