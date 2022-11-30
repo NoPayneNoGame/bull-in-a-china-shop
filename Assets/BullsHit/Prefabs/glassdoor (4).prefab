@@ -1781,6 +1781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6621777486072636126}
+  - component: {fileID: 5372940961485243602}
   m_Layer: 0
   m_Name: glassdoor (4)
   m_TagString: Untagged
@@ -1806,6 +1807,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 88.7, z: 0}
+--- !u!65 &5372940961485243602
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813750361361070180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08118468, y: 2.0043647, z: 2.0124862}
+  m_Center: {x: 0.0117176585, y: -0.010229426, z: -0.017073706}
 --- !u!1 &5824841298333336294
 GameObject:
   m_ObjectHideFlags: 0
