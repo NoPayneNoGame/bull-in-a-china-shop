@@ -18,7 +18,6 @@ public class SceneController : MonoBehaviour {
     } else {
       instance = this;
     }
-
   }
 
   Scene[] getLoadedSceneList() {

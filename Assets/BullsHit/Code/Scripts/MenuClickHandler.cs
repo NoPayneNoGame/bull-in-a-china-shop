@@ -28,7 +28,12 @@ public class MenuClickHandler : MonoBehaviour {
 
   public void Exit() {
     if (menuOpen()) return;
-    Debug.Log("Exit");
+
+    #if UNITY_EDITOR
+    UnityEditor.EditorApplication.isPlaying = false;
+    #endif
+
+    Application.Quit();
   }
 
   bool menuOpen() => options.activeSelf;
