@@ -85,6 +85,9 @@ public class SceneController : MonoBehaviour {
   public void loadMainMenu() {
     unloadNonEssentialScenes();
     SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+    SceneManager.UnloadSceneAsync("Game UI");
+    SceneManager.LoadScene("Game UI", LoadSceneMode.Additive);
+
   }
 
   void loadNonLevelScenes() {

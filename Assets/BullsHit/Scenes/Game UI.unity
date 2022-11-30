@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 4349011}
   - component: {fileID: 4349010}
   - component: {fileID: 4349009}
-  - component: {fileID: 4349008}
   m_Layer: 5
   m_Name: UI
   m_TagString: UI
@@ -143,22 +142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4349008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4349007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb9d0c0f19781844694f48812de87775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeRemaining: 5
-  timerText: {fileID: 1891673311}
-  notifyText: {fileID: 190460557}
-  endScreen: {fileID: 552452721}
 --- !u!114 &4349009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12560,6 +12543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1395712303}
+  - component: {fileID: 1395712304}
   m_Layer: 5
   m_Name: HUD
   m_TagString: HUD
@@ -12592,6 +12576,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1395712304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395712302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9d0c0f19781844694f48812de87775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeRemaining: 5
+  timerText: {fileID: 1891673311}
+  notifyText: {fileID: 190460557}
+  endScreen: {fileID: 552452721}
 --- !u!1 &1432022752
 GameObject:
   m_ObjectHideFlags: 0
