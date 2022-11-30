@@ -51,7 +51,7 @@ public class SceneController : MonoBehaviour {
   Scene getLevelScene() {
     Scene[] sceneList = getLoadedSceneList();
     foreach (Scene scene in sceneList) {
-      if (!Array.Exists(nonLevelScenes, element => element == scene.name)) {
+      if (Array.Exists(levelList, element => element == scene.name)) {
         return scene;
       }
     }
