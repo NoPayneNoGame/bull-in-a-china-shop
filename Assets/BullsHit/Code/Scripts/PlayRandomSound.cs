@@ -11,7 +11,7 @@ public class PlayRandomSound : MonoBehaviour {
   private GameObject newSound;
 
   void Start() {
-    sounds = GameObject.FindGameObjectWithTag("SFX");
+    sounds = GameObject.FindGameObjectWithTag("SFX").transform.Find("BreakingSounds").gameObject;
   }
 
   public void play() {
