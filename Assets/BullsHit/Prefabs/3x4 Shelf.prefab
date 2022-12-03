@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 6459394439444697649}
   - component: {fileID: 6459394439444697654}
   - component: {fileID: 380185409684631878}
+  - component: {fileID: 586508585573618048}
   m_Layer: 0
   m_Name: 3x4 Shelf
   m_TagString: Untagged
@@ -310,3 +311,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &586508585573618048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153334178399549604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7815c6a9faf597a4ca89d22c86023437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundObjectName: MovingShelfSound

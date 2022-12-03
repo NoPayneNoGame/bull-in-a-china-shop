@@ -9,6 +9,7 @@ public class SceneController : MonoBehaviour {
   private string[] nonLevelScenes = new string[] { "Core", "AudioCore", "Game" };
   private string[] essentialScenes = new string[] { "Core", "AudioCore", "Game UI" };
   private string[] levelList = new string[] { "ChinaShopElise" };
+  [SerializeField] private bool devMode = false;
 
   // TODO: Active scene is always core for some reason
 
@@ -20,7 +21,8 @@ public class SceneController : MonoBehaviour {
     }
   }
 
-  void Start () {
+  void Start() {
+    if (devMode) return;
     string[] loadedScenes = getLoadedSceneListNames();
     foreach (string scene in essentialScenes) {
       if (!Array.Exists(loadedScenes, element => element == scene)) {

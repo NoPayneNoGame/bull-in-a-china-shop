@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 566794306100087194}
   - component: {fileID: 566794306100087195}
   - component: {fileID: -5551172265076113774}
+  - component: {fileID: 561414215276713613}
   m_Layer: 0
   m_Name: Jug
   m_TagString: Destructible
@@ -145,7 +146,19 @@ MonoBehaviour:
         m_Calls: []
     onCompleted:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 561414215276713613}
+          m_TargetAssemblyTypeName: PlayRandomSound, Assembly-CSharp
+          m_MethodName: play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   currentRefractureCount: 0
 --- !u!65 &566794306100087195
 BoxCollider:
@@ -173,3 +186,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 200
+--- !u!114 &561414215276713613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800727842664117448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0d2c4d71e3fad4aa6f3c57eca39f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
