@@ -9,6 +9,7 @@ public class PlaySoundOnObjectMove : MonoBehaviour {
   GameObject newSoundObject;
   AudioSource newSound;
   Rigidbody rb;
+  bool isGrounded;
 
   void Start() {
     sound = GameObject.FindGameObjectWithTag("SFX").transform.Find(soundObjectName).gameObject;
@@ -25,10 +26,17 @@ public class PlaySoundOnObjectMove : MonoBehaviour {
     return true;
   }
 
+  void OnCollisionExit(Collision hit) {
+    if (hit.gameObject.tag == "Floor") isGrounded = false;
+  }
+
+  void OnCollisionEnter(Collision hit) {
+    if (hit.gameObject.tag == "Floor") isGrounded = true;
+  }
+
   void playSoundIfMoved() {
     // TODO: Consider raising volume if velocity is higher
-    // TODO: Detect if shelf is touching the floor
-    if (checkIfMoved()) { // == and != are weird for vector comparisons
+    if (checkIfMoved() && isGrounded) { // == and != are weird for vector comparisons
       //Debug.Log("Moving" + transform.position.ToString("f8") + lastPosition.ToString("f8"));
       if (newSoundObject == null) {
         newSoundObject = Instantiate(sound);
