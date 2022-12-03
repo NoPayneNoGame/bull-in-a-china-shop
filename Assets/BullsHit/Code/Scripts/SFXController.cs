@@ -27,4 +27,10 @@ public class SFXController : MonoBehaviour {
       audioSources[i].volume = volumePercentage * initialVolumes[i];
     }
   }
+
+  public void toggleSounds(bool shouldSoundsPlay) {
+    for (int i = 0; i < audioSources.Length; i++) {
+      audioSources[i].mute = !audioSources[i].mute;
+    }
+  }
 }
