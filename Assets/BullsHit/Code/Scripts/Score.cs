@@ -5,13 +5,12 @@ using TMPro;
 public class Score : MonoBehaviour {
   // I like the idea of centralizing the score text on screen and increasing text size as you do more damage
 
-  public Camera cam;
-
   private TMP_Text scoreText;
   private RawImage trophyLeft;
   private RawImage trophyRight;
   public Texture[] trophyTextures;
   [SerializeField] private GameObject floatingTextPrefab;
+  private Camera cam;
   private Canvas canvas;
   private EndScreen endScreenScript;
   private RectTransform canvasRect;
@@ -21,10 +20,6 @@ public class Score : MonoBehaviour {
   private float green = 0.8705883f;
   private float trophyOffset = 20;
   private float scoreWidth;
-
-  private int startingScore;
-  private float startingFontSize;
-  private float startingGreen;
 
   public enum Trophy {
     bronze,
@@ -43,21 +38,7 @@ public class Score : MonoBehaviour {
     trophyLeft = canvas.transform.Find("HUD").Find("TrophyLeft").GetComponent<RawImage>();
     trophyRight = canvas.transform.Find("HUD").Find("TrophyRight").GetComponent<RawImage>();
     endScreenScript = canvas.transform.Find("EndGame").GetComponent<EndScreen>();
-
-    startingScore = score;
-    startingGreen = green;
-    startingFontSize = scoreText.fontSize;
-  }
-
-  public void resetScore() {
-    score = startingScore;
-    green = startingGreen;
-    scoreText.fontSize = startingFontSize;
-    scoreText.color = new Color(1f, green, 0f);
-  }
-
-
-  public void loadScoring() {
+    cam = Camera.main;
     maxScore = getMaxScore();
     updateTrophyImages();
     repositionTrophies();
@@ -66,13 +47,10 @@ public class Score : MonoBehaviour {
   int getMaxScore() {
     int total = 0;
     GameObject[] destructibles = GameObject.FindGameObjectsWithTag("Destructible");
-    if (destructibles.Length == 0) return 1; // Terrible hack to stop bugs on other scenes
     foreach (GameObject destructible in destructibles) {
-      ScoreValue sv = destructible.GetComponent<ScoreValue>();
-      if (sv == null) continue;
-      total += sv.value;
+      // Probably want error checking here
+      total += destructible.GetComponent<ScoreValue>().value;
     }
-    Debug.Log("Max Score: " + total);
     return total;
   }
 
@@ -114,7 +92,7 @@ public class Score : MonoBehaviour {
   void onTrophyChange() {
     increaseFontIntensity();
     repositionTrophies();
-    if (score == maxScore) {
+    if (getTrophy() == Trophy.gold) {
       // End game
       endScreenScript.levelOver();
     }
@@ -138,8 +116,7 @@ public class Score : MonoBehaviour {
 
   public Trophy getTrophy() {
     // Not sure how we decide this. Just 1/3 of max, 2/3 max, 100%? (95%? so you can miss a couple and not be punished)
-    // float[] trophyScores = new float[3] { maxScore / 3, maxScore / 3 * 2, maxScore };
-    float[] trophyScores = new float[3] { maxScore * 0.2f, maxScore * 0.5f, maxScore  * 0.8f };
+    float[] trophyScores = new float[3] { maxScore / 3, maxScore / 3 * 2, maxScore };
     if (score < trophyScores[0]) {
       return Trophy.none;
     }

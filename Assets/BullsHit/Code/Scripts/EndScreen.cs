@@ -1,37 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 
 public class EndScreen : MonoBehaviour {
 
   [SerializeField] private RawImage endScreenTrophy;
   [SerializeField] private TMP_Text endScoreText;
   [SerializeField] private TMP_Text endLevelText;
-  [SerializeField] private GameObject winParticles;
-  [SerializeField] private GameObject loseParticles;
   private Score scoreScript;
   private Timer timerScript;
 
-  private PlayerMovement playerMovement;
 
   public void levelOver() {
-    playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-    playerMovement.enabled = false;
-
     scoreScript = GameObject.FindGameObjectsWithTag("Score")[0].GetComponent<Score>();
     timerScript = FindObjectOfType<Timer>();
-
     endScreenTrophy.texture = scoreScript.getTrophyTexture();
     endScoreText.text = "Score: $" + scoreScript.getScore();
-
-    if (scoreScript.getTrophy() == Score.Trophy.none) {
-      loseParticles.SetActive(true);
-    } else {
-      winParticles.SetActive(true);
-    }
-
-    disableHud();
     timerScript.pauseTimer();
     gameObject.SetActive(true);
   }
@@ -41,29 +28,19 @@ public class EndScreen : MonoBehaviour {
   }
 
   public void buttonRestart() {
-    disableEndGame();
-    reset();
-    SceneController.instance.reloadLevel();
+    // This should be moved to its own script also bugs out the lighting
+    SceneManager.LoadScene("Core");
+    SceneManager.LoadScene("AudioCore", LoadSceneMode.Additive);
+    SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+    SceneManager.LoadScene("Game UI", LoadSceneMode.Additive);
+    SceneManager.LoadScene("ChinaShop", LoadSceneMode.Additive);
   }
 
-  public void buttonHome() {
-    disableEndGame();
-    reset();
-    SceneController.instance.loadMainMenu();
+  void Start() {
+
   }
 
-  void reset() {
-    playerMovement.enabled = true;
-    scoreScript.resetScore();
-    timerScript.resetTimer();
-  }
+  void Update() {
 
-  void disableHud() {
-    GameObject.FindGameObjectWithTag("HUD").SetActive(false);
-  }
-
-  void disableEndGame() {
-    Debug.Log(GameObject.FindGameObjectWithTag("EndGame"));
-    GameObject.FindGameObjectWithTag("EndGame").SetActive(false);
   }
 }

@@ -29,16 +29,6 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] private float dashDuration = 0.2f;
 
 
-  [SerializeField] private Vector3 explosionOffset = Vector3.zero;
-  [SerializeField] private float explosionDistance = 5;
-  [SerializeField] private float explosionDistanceUp = 5;
-  [SerializeField] private float explosionPower = 10;
-  [SerializeField] private float explosionRadius = 5;
-  [SerializeField] private float upDog = 1;
-
-  private int maxColliders = 2000;
-  private Collider[] hitColliders;
-
   [Header("Camera Things")]
   public CinemachineVirtualCamera vcam;
   public float minCameraDistance = 18;
@@ -53,9 +43,9 @@ public class PlayerMovement : MonoBehaviour {
   private float currentSpeed;
   private bool canMove = true;
   private bool canJump = true;
-  private bool canDash = true;
   private bool shouldJump = false;
   private bool shouldDash = false;
+  private bool canDash = true;
   private bool shouldBrake = false;
 
   private CinemachineTransposer transposer;
@@ -115,8 +105,6 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   void Start() {
-    hitColliders = new Collider[maxColliders];
-
     transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
     if (animator == null) {
       animator = GetComponentInChildren<Animator>();
@@ -151,7 +139,6 @@ public class PlayerMovement : MonoBehaviour {
         dashLight.SetActive(true);
         Invoke("endDash", dashDuration);
         Invoke("enableDash", dashCooldown);
-        Explode();
       }
 
       if (shouldBrake) {
@@ -163,31 +150,7 @@ public class PlayerMovement : MonoBehaviour {
     }
   }
 
-  void Respawn() {
-      horizontal = 0;
-      vertical = 0;
-      shouldJump = false;
-      shouldBrake = false;
-      shouldDash = false;
-      canDash = true;
-      canJump = true;
-      canMove = true;
-      animator.SetBool("Running", false);
-      animator.SetBool("Braking", false);
-      animator.SetBool("Dashing", false);
-      animator.SetBool("Jumping", false);
-      animator.SetBool("WallCollision", false);
-
-      SceneController.instance.movePlayerToSpawn();
-  }
-
   void Update() {
-    bool respawn = Input.GetButton("Respawn");
-    if (respawn) {
-      Respawn();
-      return;
-    }
-
     horizontal = Input.GetAxisRaw("Horizontal");
     vertical = Input.GetAxisRaw("Vertical");
     shouldJump = Input.GetButton("Jump");
@@ -207,60 +170,5 @@ public class PlayerMovement : MonoBehaviour {
     } else {
       transposer.m_FollowOffset.y = Mathf.Lerp(transposer.m_FollowOffset.y, minCameraDistance, zoomInSpeed * Time.deltaTime);
     }
-  }
-
-  void PreExplodeFracture(int numColliders) {
-    for (int i = 0; i < numColliders; i++) {
-      Collider hit = hitColliders[i];
-      Fracture fracture = hit.GetComponent<Fracture>();
-      if (fracture != null) {
-        fracture.CauseFracture();
-      }
-    }
-  }
-
-  void Explode() {
-    Vector3 expPoint1 = transform.position + explosionOffset;
-    Vector3 expPoint2 = expPoint1 + (transform.forward * explosionDistance) + (Vector3.up * explosionDistanceUp);
-    float radius = explosionRadius;
-
-    int numColliders = Physics.OverlapCapsuleNonAlloc(expPoint1, expPoint2, radius, hitColliders);
-    PreExplodeFracture(numColliders);
-    numColliders = Physics.OverlapSphereNonAlloc(expPoint1, radius, hitColliders);
-    PreExplodeFracture(numColliders);
-
-    numColliders = Physics.OverlapCapsuleNonAlloc(expPoint1, expPoint2, radius, hitColliders);
-    for (int i = 0; i < numColliders; i++)
-    {
-      Collider hit = hitColliders[i];
-      Rigidbody rb = hit.GetComponent<Rigidbody>();
-      if (rb != null && hit.tag != "Player") {
-        Vector3 explosionPosition = hit.transform.position;
-        float distanceFrom = Vector3.Distance(hit.transform.position, transform.position);
-        rb.AddExplosionForce(explosionPower * (1/distanceFrom), explosionPosition, explosionRadius, upDog, ForceMode.Impulse);
-      }
-    }
-
-    numColliders = Physics.OverlapSphereNonAlloc(expPoint1, radius, hitColliders);
-    for (int i = 0; i < numColliders; i++)
-    {
-      Collider hit = hitColliders[i];
-      Rigidbody rb = hit.GetComponent<Rigidbody>();
-      if (rb != null && hit.tag != "Player") {
-        rb.AddExplosionForce(explosionPower, expPoint1, explosionRadius * 2f, upDog, ForceMode.Impulse);
-      }
-    }
-  }
-
-  private void OnDrawGizmos () {
-    Gizmos.color = Color.red;
-    Vector3 expPoint1 = transform.position + explosionOffset;
-    Vector3 expPoint2 = expPoint1 + (transform.forward * explosionDistance) + (Vector3.up * explosionDistanceUp);
-
-    Gizmos.DrawWireSphere(expPoint1, explosionRadius);
-    Gizmos.DrawWireSphere(expPoint2, explosionRadius);
-
-    Gizmos.color = Color.blue;
-    Gizmos.DrawWireSphere(expPoint1, explosionRadius * 2f);
   }
 }

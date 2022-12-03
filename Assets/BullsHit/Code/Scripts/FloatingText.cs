@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -69,6 +71,6 @@ public class FloatingText : MonoBehaviour {
   void Update() {
     if (floatingTextObject == null) return;
     if (floatingTextColor.a <= 0) Destroy(floatingTextObject);
-    if (this.cam != null) animateText();
+    animateText();
   }
 }
