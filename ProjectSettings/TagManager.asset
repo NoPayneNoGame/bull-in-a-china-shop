@@ -16,6 +16,7 @@ TagManager:
   - Music
   - UI
   - EndGame
+  - SFX
   layers:
   - Default
   - TransparentFX
