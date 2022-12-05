@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class MenuClickHandler : MonoBehaviour {
   private GameObject options;
+  private GameObject credits;
 
   void Start() {
     GameObject ui = GameObject.FindGameObjectWithTag("UI");
     options = ui.transform.Find("Options").gameObject;
+    credits = ui.transform.Find("Credits").gameObject;
   }
 
   void startGame() {
@@ -13,9 +15,9 @@ public class MenuClickHandler : MonoBehaviour {
   }
 
   void exitGame() {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     UnityEditor.EditorApplication.isPlaying = false;
-    #endif
+#endif
 
     Application.Quit();
   }
@@ -29,6 +31,7 @@ public class MenuClickHandler : MonoBehaviour {
   public void Credits() {
     if (menuOpen()) return;
     Debug.Log("Credits");
+    credits.SetActive(true);
   }
 
   public void Options() {
@@ -42,5 +45,5 @@ public class MenuClickHandler : MonoBehaviour {
     exitGame();
   }
 
-  bool menuOpen() => options.activeSelf;
+  bool menuOpen() => options.activeSelf || credits.activeSelf;
 }
