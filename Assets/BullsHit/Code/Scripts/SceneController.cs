@@ -8,7 +8,7 @@ public class SceneController : MonoBehaviour {
   public static SceneController instance { get; private set; }
   private string[] nonLevelScenes = new string[] { "Core", "AudioCore", "Game" };
   private string[] essentialScenes = new string[] { "Core", "AudioCore", "Game UI" };
-  private string[] levelList = new string[] { "ChinaShopElise" };
+  private string[] levelList = new string[] { "Tutorial", "ChinaShopElise" };
   [SerializeField] private bool devMode = false;
 
   // TODO: Active scene is always core for some reason

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/BullsHit/Scenes/ChinaShopElise.unity
     guid: ad2786c3321ea3e4487cb66e01f85037
+  - enabled: 1
+    path: Assets/BullsHit/Scenes/Tutorial.unity
+    guid: 2e126e4b44c5e574c9d41854cc9f7af9
   m_configObjects: {}

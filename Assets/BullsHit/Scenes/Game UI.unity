@@ -6646,8 +6646,8 @@ MonoBehaviour:
   endScreenTrophy: {fileID: 12639591}
   endScoreText: {fileID: 1645267181}
   endLevelText: {fileID: 1954575456}
-  winParticles: {fileID: 0}
-  loseParticles: {fileID: 0}
+  winParticles: {fileID: 1432022752}
+  loseParticles: {fileID: 1367601029}
 --- !u!1 &584524254
 GameObject:
   m_ObjectHideFlags: 0
